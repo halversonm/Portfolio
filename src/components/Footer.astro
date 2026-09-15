@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
       <p class="font-display text-xl font-semibold tracking-tight">
         {site.name}
       </p>
-      <p class="mt-3 max-w-sm text-sm text-onink-muted">{site.description}</p>
+      <p class="mt-3 max-w-sm text-sm text-onink">{site.description}</p>
       <a
         href="/contact"
         class="mt-6 inline-flex items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-md"
@@ -19,11 +19,11 @@ const year = new Date().getFullYear();
     </div>
 
     <div>
-      <p class="label text-onink-muted">Site</p>
+      <p class="label text-base! text-onink-muted">Site</p>
       <ul class="mt-4 space-y-2.5 text-sm">
         {nav.map((item) => (
           <li>
-            <a href={item.href} class="text-onink-muted hover:text-brand-bright">
+            <a href={item.href} class="text-onink hover:text-brand-bright">
               {item.label}
             </a>
           </li>
@@ -32,19 +32,19 @@ const year = new Date().getFullYear();
     </div>
 
     <div>
-      <p class="label text-onink-muted">Contact</p>
+      <p class="label text-base! text-onink-muted">Contact</p>
       <ul class="mt-4 space-y-2.5 text-sm">
-        <li><a href={`mailto:${site.email}`} class="text-onink-muted hover:text-brand-bright">{site.email}</a></li>
-        <li><a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`} class="text-onink-muted hover:text-brand-bright">{site.phone}</a></li>
+        <li><a href={`mailto:${site.email}`} class="text-onink hover:text-brand-bright">{site.email}</a></li>
+        <li><a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`} class="text-onink hover:text-brand-bright">{site.phone}</a></li>
         {site.socials.map((s) => (
-          <li><a href={s.href} class="text-onink-muted hover:text-brand-bright">{s.label}</a></li>
+          <li><a href={s.href} class="text-onink hover:text-brand-bright">{s.label}</a></li>
         ))}
       </ul>
     </div>
   </div>
 
   <div class="border-t border-white/10">
-    <div class="mx-auto max-w-6xl px-6 py-6 text-xs text-onink-muted flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+    <div class="mx-auto max-w-6xl px-6 py-6 text-xs text-onink flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
       <p>© {year} {site.name}</p>
       <p>{site.location}</p>
     </div>

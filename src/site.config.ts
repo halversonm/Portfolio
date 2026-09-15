@@ -13,8 +13,7 @@ export const site = {
   location: "Minneapolis–St. Paul, MN",
   url: "https://maxhalverson.com", // TODO: confirm domain
   socials: [
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "Instagram", href: "https://instagram.com" },
+    { label: "Facebook", href: "https://facebook.com" },
   ],
 };
 
