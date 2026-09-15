@@ -1,0 +1,119 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { services, packages } from "../data/services";
+---
+
+<Layout
+  title="Services"
+  description="Website design, local SEO, and ongoing care for local businesses."
+>
+  <section class="bg-ink text-onink">
+    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+      <p class="label text-brand-bright">Services</p>
+      <h1 class="mt-5 text-5xl sm:text-6xl text-onink">
+        Every site built in 3 easy steps
+      </h1>
+      <p class="mt-5 max-w-xl text-lg text-onink-muted">
+        I want your site up and running as efficiently as possible, with no
+        confusion. Here's exactly how it works, with 2 packages to choose from.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16 sm:py-20 space-y-6">
+    {
+      services.map((service, i) => (
+        <div
+          data-reveal
+          style={`transition-delay:${i * 100}ms`}
+          class="grid gap-6 rounded-[var(--radius-card)] border border-line bg-surface p-8 shadow-sm transition-shadow duration-300 hover:shadow-md md:grid-cols-[1fr_1.4fr]"
+        >
+          <div>
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-ink font-display text-sm font-semibold text-onink">
+              0{i + 1}
+            </span>
+            <h2 class="mt-4 text-2xl sm:text-3xl">{service.name}</h2>
+            <p class="mt-3 text-muted">{service.blurb}</p>
+          </div>
+          <ul class="grid gap-3 sm:grid-cols-2 self-center">
+            {service.includes.map((item) => (
+              <li class="flex gap-2 text-sm">
+                <span class="text-brand" aria-hidden="true">
+                  ✓
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- Packages -->
+  <section class="bg-surface border-y border-line">
+    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+      <p class="label text-brand">Pricing</p>
+      <h2 class="mt-3 text-3xl sm:text-4xl">Choose your package</h2>
+      <p class="mt-3 max-w-lg text-muted">
+        Pick the package that fits your business — no hidden fees or surprises.
+      </p>
+
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+        {
+          packages.map((pkg, i) => (
+            <div
+              data-reveal
+              style={`transition-delay:${i * 100}ms`}
+              class:list={[
+                "rounded-[var(--radius-card)] p-8 transition-all duration-300 hover:-translate-y-1",
+                pkg.featured
+                  ? "bg-ink text-onink shadow-xl"
+                  : "border border-line bg-paper shadow-sm hover:shadow-md",
+              ]}
+            >
+              {pkg.featured && (
+                <p class="label text-brand-bright">Most common</p>
+              )}
+              <h3 class="mt-2 text-xl font-display">{pkg.name}</h3>
+              <p
+                class:list={[
+                  "mt-1 font-display text-3xl font-semibold",
+                  pkg.featured ? "text-brand-bright" : "text-brand",
+                ]}
+              >
+                {pkg.price}
+              </p>
+              <p
+                class:list={[
+                  "mt-3 text-sm",
+                  pkg.featured ? "text-onink-muted" : "text-muted",
+                ]}
+              >
+                {pkg.fit}
+              </p>
+              <ul class="mt-5 space-y-2 text-sm">
+                {pkg.points.map((p) => (
+                  <li class="flex gap-2">
+                    <span
+                      class:list={
+                        pkg.featured ? "text-brand-bright" : "text-brand"
+                      }
+                      aria-hidden="true"
+                    >
+                      ✓
+                    </span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand heading="Ready to get started?" />
+</Layout>

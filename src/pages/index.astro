@@ -1,11 +1,205 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import BrowserFrame from "../components/BrowserFrame.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { site } from "../site.config";
+import { projects } from "../data/projects";
+import { services } from "../data/services";
+import { testimonials } from "../data/testimonials";
+import { foundation } from "../data/foundation";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const featured = projects.slice(0, 3);
 ---
 
 <Layout>
-	<Welcome />
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-ink text-onink">
+    <div
+      class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-brand/25 blur-3xl"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="relative mx-auto max-w-6xl px-6 py-20 sm:py-28 grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center"
+    >
+      <div>
+        <p class="label text-brand-bright">{site.location}</p>
+        <h1 class="mt-5 text-5xl sm:text-6xl lg:text-7xl text-onink">
+          {site.tagline}
+        </h1>
+        <p class="mt-6 max-w-xl text-lg text-onink-muted">
+          {site.description}
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-1.5 rounded-full bg-brand px-6 py-3 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
+          >
+            Start a project <span aria-hidden="true">→</span>
+          </a>
+          <a
+            href="/work"
+            class="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-6 py-3 font-display font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
+          >
+            See the work
+          </a>
+        </div>
+      </div>
+
+      <div data-reveal>
+        <BrowserFrame
+          domain={featured[0].domain}
+          accent={featured[0].accent}
+          src={featured[0].screenshot}
+        />
+        <p class="mt-3 label text-onink-muted">
+          {featured[0].client} — {featured[0].trade}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Foundation -->
+  <section class="bg-surface border-y border-line">
+    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+      <p class="label text-brand">Core Values</p>
+      <h2 class="mt-3 max-w-2xl text-3xl sm:text-4xl">
+        The foundation of every Halverson Web site
+      </h2>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2">
+        {
+          foundation.map((item, i) => {
+            const isLast = i === foundation.length - 1;
+            return (
+              <div
+                data-reveal
+                style={`transition-delay:${(i % 2) * 90}ms`}
+                class:list={[
+                  "flex gap-5 rounded-[var(--radius-chip)] border border-line bg-paper p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md",
+                  isLast && "sm:col-span-2 sm:items-center",
+                ]}
+              >
+                <span
+                  class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-tint text-brand"
+                  aria-hidden="true"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                  >
+                    <path
+                      d="M5 13l4 4L19 7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <div class:list={isLast && "sm:max-w-xl"}>
+                  <h3 class="font-display text-lg font-semibold">
+                    {item.title}
+                  </h3>
+                  <p class="mt-1.5 text-sm text-muted">{item.description}</p>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- What I do -->
+  <section class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+    <p class="label text-brand">Process</p>
+    <h2 class="mt-3 max-w-2xl text-3xl sm:text-4xl">
+      Building your site consists of 3 steps: 
+    </h2>
+    <div class="mt-12 grid gap-6 sm:grid-cols-3">
+      {
+        services.map((service, i) => (
+          <div
+            data-reveal
+            style={`transition-delay:${i * 100}ms`}
+            class="rounded-[var(--radius-card)] border border-line bg-surface p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <span class="grid h-9 w-9 place-items-center rounded-full bg-ink font-display text-sm font-semibold text-onink">
+              0{i + 1}
+            </span>
+            <h3 class="mt-4 text-xl">{service.name}</h3>
+            <p class="mt-2 text-sm text-muted">{service.blurb}</p>
+          </div>
+        ))
+      }
+    </div>
+    <a
+      href="/services"
+      class="mt-10 inline-flex items-center gap-1.5 font-display font-semibold text-brand hover:text-brand-dark"
+    >
+      Services &amp; pricing <span aria-hidden="true">→</span>
+    </a>
+  </section>
+
+  <!-- Selected work -->
+  <section class="bg-surface border-y border-line">
+    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <p class="label text-brand">Selected work</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl">Recent builds</h2>
+        </div>
+        <a
+          href="/work"
+          class="font-display font-semibold text-sm text-muted hover:text-brand whitespace-nowrap"
+        >
+          All work →
+        </a>
+      </div>
+      <div class="mt-12 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+        {
+          featured.map((project, i) => (
+            <div data-reveal style={`transition-delay:${i * 100}ms`}>
+              <ProjectCard project={project} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="bg-ink text-onink">
+    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+      <p class="label text-brand-bright">Word from the field</p>
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {
+          testimonials.map((t, i) => (
+            <figure
+              data-reveal
+              style={`transition-delay:${i * 100}ms`}
+              class="rounded-[var(--radius-card)] border border-white/10 bg-ink-soft p-7"
+            >
+              <span
+                aria-hidden="true"
+                class="font-display text-4xl text-brand-bright"
+              >
+                “
+              </span>
+              <blockquote class="mt-1 text-onink">{t.quote}</blockquote>
+              <figcaption class="mt-4 text-sm text-onink-muted">
+                <span class="font-semibold text-onink">{t.name}</span> —{" "}
+                {t.role}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
 </Layout>

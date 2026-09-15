@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BrowserFrame from "../../components/BrowserFrame.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout title={project.client} description={project.summary}>
+  <section class="bg-ink text-onink">
+    <div class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
+      <a href="/work" class="font-display font-semibold text-sm text-onink-muted transition-colors hover:text-brand-bright">
+        ← All work
+      </a>
+      <p class="label text-brand-bright mt-8">{project.trade}</p>
+      <h1 class="mt-4 text-4xl sm:text-5xl text-onink">{project.title}</h1>
+      <p class="mt-5 max-w-2xl text-lg text-onink-muted">{project.summary}</p>
+      <div class="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-sm text-onink-muted">
+        <span>{project.client}</span>
+        <span aria-hidden="true">·</span>
+        <span>{project.year}</span>
+        <span aria-hidden="true">·</span>
+        <span>{project.services.join(", ")}</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-auto max-w-4xl px-6 -mt-10 sm:-mt-12" data-reveal>
+    <BrowserFrame
+      domain={project.domain}
+      accent={project.accent}
+      src={project.screenshot}
+      alt={`${project.client} website`}
+    />
+  </div>
+
+  <article class="mx-auto max-w-2xl px-6 py-16">
+    <dl class="grid grid-cols-2 gap-6 rounded-[var(--radius-card)] border border-line bg-surface p-8 shadow-sm">
+      {project.results.map((r) => (
+        <div>
+          <dt class="text-sm text-muted">{r.label}</dt>
+          <dd class="mt-1 font-display text-3xl font-semibold text-brand">{r.value}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="mt-10 space-y-4 leading-relaxed text-ink/90">
+      <p>
+        <em>Placeholder case study.</em> Replace this with the real story: where
+        {project.client} started, what wasn't working, what you built, and how you
+        measured the result.
+      </p>
+      <p>
+        A structure that works: Context → Goal → What we did → Result. Drop two or
+        three screenshots between sections so it stays scannable.
+      </p>
+    </div>
+  </article>
+
+  <CtaBand heading="Want numbers like these?" />
+</Layout>

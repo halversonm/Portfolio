@@ -1,0 +1,90 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { site } from "../site.config";
+
+// The form posts to a third-party handler so the site can stay static.
+// Create a free endpoint at https://formspree.io (or Web3Forms / Basin) and
+// paste the URL here. Until then it falls back to opening the visitor's email.
+const FORM_ENDPOINT = "";
+const action = FORM_ENDPOINT || `mailto:${site.email}`;
+
+const field =
+  "mt-1.5 w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 outline-none transition-shadow focus:border-brand focus:ring-2 focus:ring-brand/20";
+const fieldLabel = "font-display font-semibold text-sm";
+---
+
+<Layout title="Contact" description="Start a project or ask a question.">
+  <section class="bg-ink text-onink">
+    <div class="mx-auto max-w-5xl px-6 py-20 sm:py-24">
+      <p class="label text-brand-bright">Contact</p>
+      <h1 class="mt-5 text-5xl sm:text-6xl text-onink">Let's talk about your site</h1>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 py-16 sm:py-20 grid gap-14 md:grid-cols-[1fr_1.1fr]">
+    <div>
+      <p class="text-lg text-muted">
+        Tell me a bit about your business and what you need. I reply to every real
+        inquiry within two business days.
+      </p>
+
+      <dl class="mt-10 space-y-5 text-sm">
+        <div>
+          <dt class="label text-brand">Email</dt>
+          <dd class="mt-1"><a class="hover:text-brand" href={`mailto:${site.email}`}>{site.email}</a></dd>
+        </div>
+        {/* <div>
+          <dt class="label text-brand">Phone</dt>
+          <dd class="mt-1"><a class="hover:text-brand" href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}>{site.phone}</a></dd>
+        </div> */}
+        {/*<div>
+          <dt class="label text-brand">Based in</dt>
+          <dd class="mt-1">{site.location}</dd>
+        </div>*/}
+      </dl>
+    </div>
+
+    <form
+      method="POST"
+      action={action}
+      data-reveal
+      class="rounded-[var(--radius-card)] border border-line bg-paper p-6 shadow-sm sm:p-8 space-y-5"
+    >
+      <div>
+        <label for="name" class={fieldLabel}>Name</label>
+        <input id="name" name="name" type="text" required class={field} />
+      </div>
+      <div>
+        <label for="email" class={fieldLabel}>Email</label>
+        <input id="email" name="email" type="email" required class={field} />
+      </div>
+      <div>
+        <label for="business" class={fieldLabel}>Business &amp; trade</label>
+        <input id="business" name="business" type="text" placeholder="e.g. Carlson Heating & Air — HVAC" class={field} />
+      </div>
+      <div>
+        <label for="budget" class={fieldLabel}>Rough budget</label>
+        <select id="budget" name="budget" class={field}>
+          <option>Not sure yet</option>
+          <option>Under $2k</option>
+          <option>$2k – $4k</option>
+          <option>$4k – $8k</option>
+          <option>$8k+</option>
+        </select>
+      </div>
+      <div>
+        <label for="message" class={fieldLabel}>What do you need?</label>
+        <textarea id="message" name="message" rows="5" required class={field}></textarea>
+      </div>
+      <button
+        type="submit"
+        class="w-full inline-flex items-center justify-center gap-1.5 rounded-full bg-brand px-6 py-3 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-md"
+      >
+        Send inquiry <span aria-hidden="true">→</span>
+      </button>
+      <p class="text-xs text-muted">
+        Prefer email? Write to <a class="underline" href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+    </form>
+  </section>
+</Layout>

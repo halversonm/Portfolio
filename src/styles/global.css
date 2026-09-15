@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Design tokens — edit these to rebrand the whole site.
+   Tailwind v4 exposes these as utilities, e.g. `bg-brand`, `text-ink`.
+--------------------------------------------------------------- */
+@theme {
+  /* Industrial sans, one family: condensed for display, regular for text */
+  --font-sans: "Barlow", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Barlow Semi Condensed", "Barlow", ui-sans-serif, system-ui,
+    sans-serif;
+
+  /* Core palette: near-black, warm off-white, confident forest green */
+  --color-ink: #16181a;
+  --color-ink-soft: #22262a;
+  --color-paper: #f4f3ee;
+  --color-surface: #ffffff;
+  --color-muted: #6b6f72;
+  --color-line: #e6e4da;
+
+  --color-brand: #2d5a3d;
+  --color-brand-dark: #1f4029;
+  --color-brand-bright: #5cae7a; /* legible green on dark backgrounds */
+  --color-brand-tint: #eaf1ec; /* soft green wash for chips/badges */
+
+  /* On-dark helpers */
+  --color-onink: #ededea;
+  --color-onink-muted: #9aa0a1;
+
+  /* Rounded, softer shapes */
+  --radius-card: 1.25rem;
+  --radius-chip: 0.75rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+
+  ::selection {
+    background-color: var(--color-brand);
+    color: white;
+  }
+}
+
+/* Small uppercase eyebrow label — used sparingly for section kickers */
+@utility label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+}
+
+/* ---------------------------------------------------------------
+   Scroll reveal — paired with the IntersectionObserver in Layout.astro.
+   Respects prefers-reduced-motion.
+--------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { site } from "../site.config";
+
+const process = [
+  {
+    step: "01",
+    name: "Consult & Design",
+    text: "I learn about your business and we figure out your website needs and decide how you want the site to look.",
+  },
+  {
+    step: "02",
+    name: "Build & Refine",
+    text: "I'll build a draft of your site and share it with you. From there, we'll refine it together — up to 2 rounds of revisions are included, with more available if needed — until it's ready to go live.",
+  },
+  {
+    step: "03",
+    name: "Launch",
+    text: "Your site is published and made live — ready to bring in calls and new customers. Final quality checks are conducted.",
+  },
+];
+---
+
+<Layout title="About" description={`About ${site.name}.`}>
+  <section class="bg-ink text-onink">
+    <div class="mx-auto max-w-3xl px-6 py-20 sm:py-28">
+      <p class="label text-brand-bright">About</p>
+      <h1 class="mt-5 text-5xl sm:text-6xl text-onink">
+        Welcome to Halverson Web
+      </h1>
+      <div class="mt-8 space-y-5 text-lg leading-relaxed text-onink-muted">
+        <p>I'm glad you're here — let me tell you about myself.</p>
+        <p>
+          I'm Max — a web developer based in the Twin Cities who is focused on
+          building fast, content-driven websites for blue-collar businesses. I
+          have a background in software QA, so I bring a sharp eye for detail
+          and reliability to every site I build. My goal for every client is to
+          create a site that loads fast, looks great, works correctly on every
+          device, and doesn't get in the way of customers trying to reach them.
+        </p>
+        <p>
+          When I'm not building websites, you'll most likely find me watching
+          sports or on the golf course. Thank you so much for considering me as
+          your web developer, I look forward to speaking with you!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
+    <p class="label text-brand">How projects run</p>
+    <ol class="mt-10 space-y-6">
+      {
+        process.map((p, i) => (
+          <li
+            data-reveal
+            style={`transition-delay:${i * 90}ms`}
+            class="grid grid-cols-[auto_1fr] gap-5 rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-sm transition-shadow duration-300 hover:shadow-md"
+          >
+            <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-tint font-display text-lg font-semibold text-brand">
+              {p.step}
+            </span>
+            <div>
+              <h3 class="text-xl">{p.name}</h3>
+              <p class="mt-1.5 text-muted">{p.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <CtaBand />
+</Layout>
