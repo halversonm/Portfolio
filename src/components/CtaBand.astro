@@ -6,7 +6,7 @@ interface Props {
 const { heading = "Ready? Get started now" } = Astro.props;
 ---
 
-<section class="bg-surface px-6 py-20 sm:py-24">
+<section class="bg-gray px-6 py-20 sm:py-24">
   <div
     data-reveal
     class="relative mx-auto max-w-6xl overflow-hidden rounded-[var(--radius-card)] bg-linear-to-br from-brand to-brand-dark px-8 py-16 text-center text-white shadow-xl ring-1 ring-white/10 sm:px-14 sm:py-20"
@@ -31,7 +31,7 @@ const { heading = "Ready? Get started now" } = Astro.props;
         href="/contact"
         class="pulse relative inline-flex items-center gap-1.5 rounded-full bg-white px-6 py-3 font-display font-semibold text-brand shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
       >
-        Form <span aria-hidden="true">→</span>
+        Get Started <span aria-hidden="true">→</span>
       </a>
       <a
         href={`mailto:${site.email}`}

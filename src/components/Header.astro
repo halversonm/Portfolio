@@ -6,7 +6,7 @@ const isActive = (href: string) =>
   href === "/" ? path === "/" : path.startsWith(href);
 ---
 
-<header class="sticky top-0 z-40 border-b border-white/10 bg-ink/90 text-onink backdrop-blur supports-[backdrop-filter]:bg-ink/80">
+<header class="sticky top-0 z-40 border-b border-white/10 bg-ink text-onink">
   <div class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
     <a href="/" class="flex items-center gap-2.5">
       <span class="grid h-8 w-8 place-items-center rounded-lg bg-brand text-white font-display font-bold text-sm">
@@ -37,7 +37,7 @@ const isActive = (href: string) =>
         href="/contact"
         class="inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-md"
       >
-        Start a project <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+        Get Started <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
       </a>
     </nav>
 
@@ -62,7 +62,7 @@ const isActive = (href: string) =>
           href="/contact"
           class="mt-1 block rounded-xl bg-brand px-3.5 py-2.5 text-center font-display font-semibold text-sm text-white"
         >
-          Start a project →
+          Get Started →
         </a>
       </div>
     </details>

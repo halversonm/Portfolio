@@ -8,7 +8,7 @@ export const site = {
   tagline: "Websites that work as hard as you do",
   description:
     "Web development for blue-collar businesses. Fast, no-nonsense sites that load quick, work on every phone, and don't get between you and your customers.",
-  email: "hello@maxhalverson.com", // TODO: real inbox
+  email: "max@halversonweb.com", // TODO: real inbox
   phone: "(651) 353-9831", // TODO: real number
   location: "Minneapolis–St. Paul, MN",
   url: "https://maxhalverson.com", // TODO: confirm domain
