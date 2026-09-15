@@ -7,7 +7,8 @@ const isActive = (href: string) =>
 ---
 
 <header class="sticky top-0 z-40 border-b border-white/10 bg-ink text-onink">
-  <div class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+  <div class="mx-auto max-w-6xl px-6 h-16 grid grid-cols-[1fr_auto_1fr] items-center md:flex md:justify-between">
+    <div class="md:hidden" aria-hidden="true"></div>
     <a href="/" class="flex items-center">
       <img
         src="/halverson-web-logo-reversed.svg"
@@ -42,7 +43,7 @@ const isActive = (href: string) =>
       </a>
     </nav>
 
-    <details class="md:hidden relative">
+    <details class="md:hidden relative justify-self-end">
       <summary class="list-none cursor-pointer rounded-lg p-2 -mr-2 hover:bg-white/5" aria-label="Menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"></path>
