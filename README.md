@@ -1,6 +1,6 @@
 # Halverson Web
 
-Business site for Halverson Web — fast, custom websites for blue-collar businesses in the Twin Cities and beyond.
+Business site for Halverson Web — fast, custom, mobile-friendly websites for blue-collar businesses in the Twin Cities and beyond.
 
 ## Tech Stack
 
