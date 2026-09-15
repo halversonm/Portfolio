@@ -24,7 +24,7 @@ const featured = projects.slice(0, 3);
       class="relative mx-auto max-w-6xl px-6 py-20 sm:py-28 grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center"
     >
       <div>
-        <p class="label text-brand-bright">{site.location}</p>
+        <p class="label text-brand-bright">Web Development for blue-collar businesses</p>
         <h1 class="mt-5 text-5xl sm:text-6xl lg:text-7xl text-onink" aria-label={site.tagline}>
           <span id="hero-typewriter" data-text={site.tagline} aria-hidden="true">{site.tagline}</span><span class="hero-caret" aria-hidden="true"></span>
         </h1>
@@ -34,7 +34,7 @@ const featured = projects.slice(0, 3);
         <div class="mt-9 flex flex-wrap gap-3">
           <a
             href="/contact"
-            class="inline-flex items-center gap-1.5 rounded-full bg-brand px-6 py-3 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
+            class="hero-cta relative inline-flex items-center gap-1.5 rounded-full bg-brand px-6 py-3 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
           >
             Get Started <span aria-hidden="true">→</span>
           </a>
@@ -224,6 +224,35 @@ const featured = projects.slice(0, 3);
   @media (prefers-reduced-motion: reduce) {
     .hero-caret {
       display: none;
+    }
+  }
+
+  .hero-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 0 0 rgba(92, 174, 122, 0.55);
+    animation: hero-cta-ring 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    pointer-events: none;
+  }
+  .hero-cta:hover::before {
+    animation-play-state: paused;
+  }
+
+  @keyframes hero-cta-ring {
+    0% {
+      box-shadow: 0 0 0 0 rgba(92, 174, 122, 0.55);
+    }
+    75%,
+    100% {
+      box-shadow: 0 0 0 10px rgba(92, 174, 122, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-cta::before {
+      animation: none;
     }
   }
 </style>

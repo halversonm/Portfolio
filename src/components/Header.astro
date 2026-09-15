@@ -8,13 +8,14 @@ const isActive = (href: string) =>
 
 <header class="sticky top-0 z-40 border-b border-white/10 bg-ink text-onink">
   <div class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2.5">
-      <span class="grid h-8 w-8 place-items-center rounded-lg bg-brand text-white font-display font-bold text-sm">
-        H
-      </span>
-      <span class="font-display font-semibold tracking-tight text-[1.05rem]">
-        {site.shortName}
-      </span>
+    <a href="/" class="flex items-center">
+      <img
+        src="/halverson-web-logo-reversed.svg"
+        alt={site.name}
+        class="h-8 w-auto"
+        width="224"
+        height="48"
+      />
     </a>
 
     <nav class="hidden md:flex items-center gap-8 text-sm">
