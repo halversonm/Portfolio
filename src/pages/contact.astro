@@ -24,8 +24,7 @@ const fieldLabel = "font-display font-semibold text-sm";
   <section class="mx-auto max-w-5xl px-6 py-16 sm:py-20 grid gap-14 md:grid-cols-[1fr_1.1fr]">
     <div>
       <p class="text-lg text-muted">
-        Tell me a bit about your business and what you need. I reply to every real
-        inquiry within two business days.
+        I'm excited to learn more about your business. I reply to every real inquiry within 2 business days.
       </p>
 
       <dl class="mt-10 space-y-5 text-sm">
@@ -59,21 +58,34 @@ const fieldLabel = "font-display font-semibold text-sm";
         <input id="email" name="email" type="email" required class={field} />
       </div>
       <div>
+        <label for="phone" class={fieldLabel}>Phone</label>
+        <input id="phone" name="phone" type="tel" class={field} />
+      </div>
+      <fieldset>
+        <legend class={fieldLabel}>Preferred contact method</legend>
+        <div class="mt-1.5 flex flex-wrap gap-2.5">
+          {["Email", "Phone", "Doesn't matter"].map((option) => (
+            <label class="cursor-pointer">
+              <input
+                type="radio"
+                name="preferredContact"
+                value={option}
+                checked={option === "Doesn't matter"}
+                class="peer sr-only"
+              />
+              <span class="inline-flex items-center rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium transition-colors peer-checked:border-brand peer-checked:bg-brand peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-brand/40 peer-focus-visible:ring-offset-2">
+                {option}
+              </span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <div>
         <label for="business" class={fieldLabel}>Business &amp; trade</label>
         <input id="business" name="business" type="text" placeholder="e.g. Carlson Heating & Air — HVAC" class={field} />
       </div>
       <div>
-        <label for="budget" class={fieldLabel}>Rough budget</label>
-        <select id="budget" name="budget" class={field}>
-          <option>Not sure yet</option>
-          <option>Under $2k</option>
-          <option>$2k – $4k</option>
-          <option>$4k – $8k</option>
-          <option>$8k+</option>
-        </select>
-      </div>
-      <div>
-        <label for="message" class={fieldLabel}>What do you need?</label>
+        <label for="message" class={fieldLabel}>Tell me a bit about your business and what you're looking for in a website</label>
         <textarea id="message" name="message" rows="5" required class={field}></textarea>
       </div>
       <button
