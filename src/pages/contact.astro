@@ -2,11 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import { site } from "../site.config";
 
-// The form posts to a third-party handler so the site can stay static.
-// Create a free endpoint at https://formspree.io (or Web3Forms / Basin) and
-// paste the URL here. Until then it falls back to opening the visitor's email.
-const FORM_ENDPOINT = "";
-const action = FORM_ENDPOINT || `mailto:${site.email}`;
 
 const field =
   "mt-1.5 w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 outline-none transition-shadow focus:border-brand focus:ring-2 focus:ring-brand/20";
@@ -45,7 +40,7 @@ const fieldLabel = "font-display font-semibold text-sm";
 
     <form
       method="POST"
-      action={action}
+      data-netlify="true"
       data-reveal
       class="rounded-[var(--radius-card)] border border-line bg-paper p-6 shadow-sm sm:p-8 space-y-5"
     >
