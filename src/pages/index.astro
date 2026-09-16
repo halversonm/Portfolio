@@ -6,7 +6,7 @@ import CtaBand from "../components/CtaBand.astro";
 import { site } from "../site.config";
 import { projects } from "../data/projects";
 import { services } from "../data/services";
-import { testimonials } from "../data/testimonials";
+// import { testimonials } from "../data/testimonials"; // no real reviews yet — testimonials section disabled below
 import { foundation } from "../data/foundation";
 
 const featured = projects.slice(0, 3);
@@ -171,7 +171,7 @@ const featured = projects.slice(0, 3);
     </div>
   </section>
 
-  <!-- Testimonials -->
+  {/* Testimonials — disabled until there are real reviews to show
   <section class="bg-ink text-onink">
     <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
       <p class="label text-brand-bright">Word from the field</p>
@@ -200,6 +200,7 @@ const featured = projects.slice(0, 3);
       </div>
     </div>
   </section>
+  */}
 
   <CtaBand />
 </Layout>
