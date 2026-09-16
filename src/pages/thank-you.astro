@@ -10,16 +10,28 @@ import { site } from "../site.config";
         class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand-tint text-brand"
         aria-hidden="true"
       >
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"></path>
+        <svg
+          width="30"
+          height="30"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path
+            d="M5 13l4 4L19 7"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
         </svg>
       </span>
 
       <p class="label mt-6 text-brand-bright">Message sent</p>
-      <h1 class="mt-4 text-4xl sm:text-5xl text-onink">Thanks — it's on its way</h1>
+      <h1 class="mt-4 text-4xl sm:text-5xl text-onink">
+        Thanks — it's on its way
+      </h1>
       <p class="mt-5 text-lg text-onink-muted">
-        I've got your message and will reply within two business days. If it's
-        urgent, feel free to email me directly in the meantime.
+        I've got your message and will reply within two business days. I look
+        forward to connecting with you.
       </p>
 
       <div class="mt-10 flex flex-wrap justify-center gap-3">
@@ -29,16 +41,13 @@ import { site } from "../site.config";
         >
           Back home <span aria-hidden="true">→</span>
         </a>
-        <a
-          href="/work"
-          class="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-6 py-3 font-display font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
-        >
-          See the work
-        </a>
       </div>
 
       <p class="mt-8 text-sm text-onink-muted">
-        Or write to <a class="underline hover:text-brand-bright" href={`mailto:${site.email}`}>{site.email}</a>
+        Or write to <a
+          class="underline hover:text-brand-bright"
+          href={`mailto:${site.email}`}>{site.email}</a
+        >
       </p>
     </div>
   </section>
