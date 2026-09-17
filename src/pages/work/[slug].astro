@@ -18,22 +18,34 @@ const { project } = Astro.props;
 <Layout title={project.client} description={project.summary}>
   <section class="bg-ink text-onink">
     <div class="mx-auto max-w-4xl px-6 py-16 sm:py-20">
-      <a href="/work" class="font-display font-semibold text-sm text-onink-muted transition-colors hover:text-brand-bright">
+      <a href="/work" class="inline-flex items-center gap-1 font-display font-semibold text-xl text-onink-muted transition-colors hover:text-brand-bright">
         ← All work
       </a>
       <div class="mt-8 flex flex-wrap items-center gap-2">
         <p class="label text-brand-bright">{project.trade}</p>
         {project.sample && <SampleBadge />}
       </div>
-      <h1 class="mt-4 text-4xl sm:text-5xl text-onink">{project.title}</h1>
-      <p class="mt-5 max-w-2xl text-lg text-onink-muted">{project.summary}</p>
-      <div class="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-sm text-onink-muted">
-        <span>{project.client}</span>
-        <span aria-hidden="true">·</span>
-        <span>{project.year}</span>
-        <span aria-hidden="true">·</span>
-        <span>{project.services.join(", ")}</span>
-      </div>
+      <h1 class="mt-4 text-4xl sm:text-5xl text-onink">{project.client}</h1>
+      <p class="label mt-7 text-onink-muted">Their Priorities:</p>
+      <ul class="mt-3 max-w-2xl space-y-2">
+        {project.highlights.map((h) => (
+          <li class="flex items-start gap-2.5 text-lg text-onink-muted">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              class="mt-1.5 shrink-0 text-brand-bright"
+              aria-hidden="true"
+            >
+              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>{h}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
@@ -62,28 +74,14 @@ const { project } = Astro.props;
         </a>
       </div>
     ) : (
-      <>
-        <dl class="grid grid-cols-2 gap-6 rounded-[var(--radius-card)] border border-line bg-surface p-8 shadow-sm">
-          {project.results.map((r) => (
-            <div>
-              <dt class="text-sm text-muted">{r.label}</dt>
-              <dd class="mt-1 font-display text-3xl font-semibold text-brand">{r.value}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <div class="mt-10 space-y-4 leading-relaxed text-ink/90">
-          <p>
-            <em>Placeholder case study.</em> Replace this with the real story: where
-            {project.client} started, what wasn't working, what you built, and how you
-            measured the result.
-          </p>
-          <p>
-            A structure that works: Context → Goal → What we did → Result. Drop two or
-            three screenshots between sections so it stays scannable.
-          </p>
-        </div>
-      </>
+      <dl class="grid grid-cols-2 gap-6 rounded-[var(--radius-card)] border border-line bg-surface p-8 shadow-sm">
+        {project.results.map((r) => (
+          <div>
+            <dt class="text-sm text-muted">{r.label}</dt>
+            <dd class="mt-1 font-display text-3xl font-semibold text-brand">{r.value}</dd>
+          </div>
+        ))}
+      </dl>
     )}
   </article>
 

@@ -7,6 +7,8 @@ export type Project = {
   trade: string;
   year: number;
   summary: string;
+  /** Short emphasis points shown under the company name on the case-study page. */
+  highlights: string[];
   services: string[];
   /** Screenshot path (put files in public/work/). Leave empty for a placeholder frame. */
   screenshot?: string;
@@ -28,6 +30,11 @@ export const projects: Project[] = [
     year: 2025,
     summary:
       "A design-led landscaping company: a site-plan diagram for every project, a clear four-phase process, and a site-walk request form that keeps the pipeline full through the off-season.",
+    highlights: [
+      "Showcase real, completed projects with before/after photos",
+      "Communicate their design-to-build process in a way that's easy to follow",
+      "Clearly display company service area",
+    ],
     services: ["Design", "Astro build", "Copywriting"],
     screenshot: "/work/cedar-stone-landscape.png",
     accent: "#3f5e2f",
@@ -47,6 +54,12 @@ export const projects: Project[] = [
     year: 2025,
     summary:
       "Replaced a Facebook page with a real website. Service-area pages, a photo gallery from the field, and a quote form that lands in the owner's inbox.",
+    highlights: [
+      "Service-area pages",
+      "Photo gallery from the field",
+      "Quote form straight to the owner's inbox",
+      "Loads in under a second on 4G",
+    ],
     services: ["Design", "Astro build", "Local SEO"],
     accent: "#2d5a3d",
     results: [
@@ -63,6 +76,12 @@ export const projects: Project[] = [
     year: 2024,
     summary:
       "Rebuilt a slow template site into a fast one with click-to-call everywhere, financing info up front, and a maintenance-plan page.",
+    highlights: [
+      "Click-to-call on every page",
+      "Financing info up front",
+      "Maintenance-plan page",
+      "98 Google PageSpeed score",
+    ],
     services: ["Design", "Astro build", "Local SEO"],
     accent: "#1f4029",
     results: [
@@ -79,6 +98,12 @@ export const projects: Project[] = [
     year: 2024,
     summary:
       "Brand refresh and a five-page site: residential, commercial, panel upgrades, EV chargers, and a hiring page that keeps the pipeline full.",
+    highlights: [
+      "Full brand refresh",
+      "Residential & commercial service pages",
+      "EV charger & panel-upgrade info",
+      "Built-in hiring page",
+    ],
     services: ["Brand", "Design", "Astro build"],
     accent: "#2d5a3d",
     results: [
