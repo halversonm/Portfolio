@@ -16,7 +16,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "Max gets what a small crew needs. No jargon, no upsells — just a site that books work.",
     name: "Placeholder Name",
-    role: "Hedberg Landscaping & Snow",
+    role: "Cedar & Stone Landscape Co.",
   },
   {
     quote:

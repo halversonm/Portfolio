@@ -9,11 +9,9 @@ import { projects } from "../../data/projects";
   <section class="bg-ink text-onink">
     <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <p class="label text-brand-bright">Work</p>
-      <h1 class="mt-5 text-5xl sm:text-6xl text-onink">Sites that book work</h1>
+      <h1 class="mt-5 text-5xl sm:text-6xl text-onink">Websites I've built</h1>
       <p class="mt-5 max-w-xl text-lg text-onink-muted">
-        Every project starts with the same question: what does this site need to
-        do for the business? Usually it's phone calls, quote requests, or job
-        applications. Then we build for that.
+        Some of these are live client sites, others are samples built to show what's possible and get your ideas flowing. Click any site to see more information.
       </p>
     </div>
   </section>
@@ -22,7 +20,7 @@ import { projects } from "../../data/projects";
     <div class="grid gap-x-8 gap-y-14 md:grid-cols-2">
       {projects.map((project, i) => (
         <div data-reveal style={`transition-delay:${(i % 2) * 100}ms`}>
-          <ProjectCard project={project} />
+          <ProjectCard project={project} compact />
         </div>
       ))}
     </div>

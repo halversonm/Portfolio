@@ -12,9 +12,32 @@ export type Project = {
   screenshot?: string;
   accent: string;
   results: { label: string; value: string }[];
+  /** If set, the case-study page links out to this live site instead of showing stats/case-study copy. */
+  liveUrl?: string;
+  /** Flags this as a demo/sample build, not a real client — shown as a disclosure badge. */
+  sample?: boolean;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "cedar-stone-landscape",
+    title: "A website that sells design quality before the first site walk",
+    client: "Cedar & Stone Landscape Co.",
+    domain: "cedarandstonelandscape.com",
+    trade: "Landscape design & build",
+    year: 2025,
+    summary:
+      "A design-led landscaping company: a site-plan diagram for every project, a clear four-phase process, and a site-walk request form that keeps the pipeline full through the off-season.",
+    services: ["Design", "Astro build", "Copywriting"],
+    screenshot: "/work/cedar-stone-landscape.png",
+    accent: "#3f5e2f",
+    results: [
+      { label: "Site walk requests / mo", value: "4 → 15" },
+      { label: "Avg. project value", value: "+30%" },
+    ],
+    liveUrl: "https://halverson-landscape-demo.netlify.app/#top",
+    sample: true,
+  },
   {
     slug: "northline-excavating",
     title: "A dig-ready site for a growing excavation crew",
@@ -29,22 +52,6 @@ export const projects: Project[] = [
     results: [
       { label: "Quote requests / mo", value: "1 → 12" },
       { label: "Loads on 4G", value: "under 1s" },
-    ],
-  },
-  {
-    slug: "hedberg-landscaping",
-    title: "Seasonal work booked out through spring",
-    client: "Hedberg Landscaping & Snow",
-    domain: "hedberglandscaping.com",
-    trade: "Landscaping & snow removal",
-    year: 2025,
-    summary:
-      "A site built around two seasons. Clear service split, before/after sliders, and a contract signup that fills the winter route.",
-    services: ["Design", "Webflow build", "Copywriting"],
-    accent: "#3f5e2f",
-    results: [
-      { label: "Snow contracts signed", value: "+38%" },
-      { label: "Time on site", value: "+61%" },
     ],
   },
   {

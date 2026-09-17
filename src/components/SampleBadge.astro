@@ -1,0 +1,16 @@
+---
+/** Solid, high-contrast "Sample" flag — works on light or dark backgrounds. */
+interface Props {
+  class?: string;
+}
+const { class: cls = "" } = Astro.props;
+---
+
+<span
+  class={`inline-flex items-center gap-1 rounded-full bg-brand px-2.5 py-1 text-[0.7rem] font-bold uppercase tracking-wide text-white shadow-[0_2px_8px_-1px_rgba(45,90,61,0.6)] ${cls}`}
+>
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z" />
+  </svg>
+  Sample
+</span>

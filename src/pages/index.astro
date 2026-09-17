@@ -154,7 +154,7 @@ const featured = projects.slice(0, 3);
         </div>
         <a
           href="/work"
-          class="font-display font-semibold text-sm text-muted hover:text-brand whitespace-nowrap"
+          class="font-display font-semibold text-base text-muted hover:text-brand whitespace-nowrap"
         >
           All work →
         </a>
@@ -163,7 +163,7 @@ const featured = projects.slice(0, 3);
         {
           featured.map((project, i) => (
             <div data-reveal style={`transition-delay:${i * 100}ms`}>
-              <ProjectCard project={project} />
+              <ProjectCard project={project} compact />
             </div>
           ))
         }
