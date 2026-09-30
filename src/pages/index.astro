@@ -49,15 +49,35 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
         </div>
       </div>
 
-      <div data-reveal>
-        <BrowserFrame
-          domain={featured[0].domain}
-          accent={featured[0].accent}
-          src={featured[0].screenshot}
-        />
-        <p class="mt-3 label text-onink-muted">
-          {featured[0].client} — {featured[0].trade}
-        </p>
+      <div data-reveal class="hero-carousel relative">
+        {
+          featured.map((project, i) => (
+            <div class:list={["hero-slide", i === 0 && "is-active"]} data-index={i}>
+              <BrowserFrame
+                domain={project.domain}
+                accent={project.accent}
+                src={project.screenshot}
+              />
+              <p class="mt-3 label text-onink-muted">
+                {project.client} — {project.trade}
+              </p>
+            </div>
+          ))
+        }
+        {
+          featured.length > 1 && (
+            <div class="mt-4 flex justify-center gap-2">
+              {featured.map((_, i) => (
+                <button
+                  type="button"
+                  class:list={["hero-dot", i === 0 && "is-active"]}
+                  data-index={i}
+                  aria-label={`Show project ${i + 1} of ${featured.length}`}
+                />
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
   </section>
@@ -265,6 +285,49 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
       animation: none;
     }
   }
+
+  .hero-slide {
+    display: none;
+  }
+  .hero-slide.is-active {
+    display: block;
+    animation: hero-slide-in 0.6s ease;
+  }
+
+  @keyframes hero-slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .hero-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    border: none;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .hero-dot:hover {
+    background: rgba(255, 255, 255, 0.45);
+  }
+  .hero-dot.is-active {
+    background: var(--color-brand-bright);
+    transform: scale(1.25);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide.is-active {
+      animation: none;
+    }
+  }
 </style>
 
 <script>
@@ -288,5 +351,45 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
     }
 
     setTimeout(typeNext, startDelay);
+  }
+</script>
+
+<script>
+  const carousel = document.querySelector(".hero-carousel");
+  if (carousel) {
+    const slides = [...carousel.querySelectorAll(".hero-slide")];
+    const dots = [...carousel.querySelectorAll(".hero-dot")];
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    let index = 0;
+    let timer;
+
+    function show(next) {
+      index = next;
+      slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
+      dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+    }
+
+    function start() {
+      if (reduceMotion || slides.length < 2) return;
+      clearInterval(timer);
+      timer = setInterval(() => show((index + 1) % slides.length), 4500);
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        show(i);
+        start();
+      });
+    });
+
+    if (slides.length > 1) {
+      carousel.addEventListener("mouseenter", () => clearInterval(timer));
+      carousel.addEventListener("mouseleave", start);
+    }
+
+    start();
   }
 </script>

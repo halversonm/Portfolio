@@ -45,6 +45,30 @@ export const projects: Project[] = [
     liveUrl: "https://halverson-landscape-demo.netlify.app/#top",
     sample: true,
   },
+  {
+    slug: "ironwood-plumbing-heating-cooling",
+    title: "A site built to get the phone ringing, day or night",
+    client: "Ironwood Plumbing, Heating & Cooling",
+    domain: "ironwoodphc.com",
+    trade: "Plumbing, heating & cooling",
+    year: 2025,
+    summary:
+      "A trust-first site for a family-owned home services company: click-to-call and free-quote buttons on every page, real reviews and guarantees up front, and a clear service-area list for a 24/7 emergency business.",
+    highlights: [
+      "Click-to-call and free-quote buttons on every page",
+      "Trust signals up front — reviews, ratings, licensing, flat-rate pricing",
+      "Clear service-area list so people know if they're covered",
+    ],
+    services: ["Design", "Astro build", "Copywriting"],
+    screenshot: "/work/ironwood-phc.png",
+    accent: "#c2531f",
+    results: [
+      { label: "Missed-call rate", value: "−40%" },
+      { label: "Free-quote requests / mo", value: "3 → 11" },
+    ],
+    liveUrl: "https://halverson-hvac-demo.netlify.app/",
+    sample: true,
+  },
 ];
 
 /**
