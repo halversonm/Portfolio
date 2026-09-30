@@ -11,7 +11,7 @@ export const site = {
   description:
     "Custom websites that load fast, look great on every device, and don't get between you and your customers.",
   email: "max@halversonweb.com",
-  phone: "(651) 353-9831",
+  phone: "(952) 213-9678",
   location: "Minneapolis–St. Paul, MN",
   url: "https://halversonweb.com", // TODO: confirm domain
   socials: [

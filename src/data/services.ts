@@ -52,4 +52,33 @@ export const packages = [
     points: ["Fully custom website, built for your business", "Website hosting", "Ongoing monthly support — up to 3 simple updates per month (each typically under 30 minutes); larger requests quoted separately", "No committment, cancel anytime"],
     featured: true,
   },
+  {
+    name: "Need Something Bigger?",
+    price: "Custom Quote",
+    fit: "Does your website require more beyond what the standard packages offer? Reach out and we'll talk through what you need and put together a custom quote.",
+    points: ["Scoped around your specific needs", "Fixed price before any work starts", "No obligation — just a conversation"],
+    contactCta: true,
+  },
 ];
+
+/**
+ * Scope note shown alongside Website Only / Full Service — what's covered
+ * under those two packages, and what routes to a custom quote instead.
+ */
+export const packageScope = {
+  note: "The Website Only and Full Service packages cover sites up to 10 pages with straightforward functionality, including features like:",
+  includes: [
+    "Photo galleries",
+    "Contact / quote request forms",
+    "Google Maps embed for your location or service area",
+    "Mobile-responsive design",
+    "Basic SEO setup — meta tags, sitemap, alt text",
+    "A simple embedded scheduling tool (Calendly-style), if wanted",
+  ],
+  excludes: [
+    "E-commerce or online payments beyond a simple quote request",
+    "Customer accounts or logins",
+    "Custom interactive tools — calculators, multi-step booking flows",
+    "A blog or regularly updated content section",
+  ],
+};

@@ -45,70 +45,10 @@ export const projects: Project[] = [
     liveUrl: "https://halverson-landscape-demo.netlify.app/#top",
     sample: true,
   },
-  {
-    slug: "northline-excavating",
-    title: "A dig-ready site for a growing excavation crew",
-    client: "Northline Excavating",
-    domain: "northlineexcavating.com",
-    trade: "Excavation & site prep",
-    year: 2025,
-    summary:
-      "Replaced a Facebook page with a real website. Service-area pages, a photo gallery from the field, and a quote form that lands in the owner's inbox.",
-    highlights: [
-      "Service-area pages",
-      "Photo gallery from the field",
-      "Quote form straight to the owner's inbox",
-      "Loads in under a second on 4G",
-    ],
-    services: ["Design", "Astro build", "Local SEO"],
-    accent: "#2d5a3d",
-    results: [
-      { label: "Quote requests / mo", value: "1 → 12" },
-      { label: "Loads on 4G", value: "under 1s" },
-    ],
-  },
-  {
-    slug: "carlson-hvac",
-    title: "Emergency calls that actually reach a person",
-    client: "Carlson Heating & Air",
-    domain: "carlsonheatingair.com",
-    trade: "HVAC",
-    year: 2024,
-    summary:
-      "Rebuilt a slow template site into a fast one with click-to-call everywhere, financing info up front, and a maintenance-plan page.",
-    highlights: [
-      "Click-to-call on every page",
-      "Financing info up front",
-      "Maintenance-plan page",
-      "98 Google PageSpeed score",
-    ],
-    services: ["Design", "Astro build", "Local SEO"],
-    accent: "#1f4029",
-    results: [
-      { label: "Mobile call taps", value: "2.3x" },
-      { label: "Google PageSpeed", value: "98" },
-    ],
-  },
-  {
-    slug: "twin-ports-electric",
-    title: "A licensed shop that finally looks licensed",
-    client: "Twin Ports Electric",
-    domain: "twinportselectric.com",
-    trade: "Electrical contracting",
-    year: 2024,
-    summary:
-      "Brand refresh and a five-page site: residential, commercial, panel upgrades, EV chargers, and a hiring page that keeps the pipeline full.",
-    highlights: [
-      "Full brand refresh",
-      "Residential & commercial service pages",
-      "EV charger & panel-upgrade info",
-      "Built-in hiring page",
-    ],
-    services: ["Brand", "Design", "Astro build"],
-    accent: "#2d5a3d",
-    results: [
-      { label: "Résumés received / mo", value: "0 → 6" },
-      { label: "Commercial leads", value: "+45%" },
-    ],
-  },
 ];
+
+/**
+ * How many "Coming soon" placeholder cards to show alongside real projects
+ * (on the homepage and /work) until more real client work is added.
+ */
+export const comingSoonSlots = 3;

@@ -1,8 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import ComingSoonCard from "../../components/ComingSoonCard.astro";
 import CtaBand from "../../components/CtaBand.astro";
-import { projects } from "../../data/projects";
+import { projects, comingSoonSlots } from "../../data/projects";
 ---
 
 <Layout title="Work" description="Recent websites built for local and blue-collar businesses.">
@@ -11,7 +12,8 @@ import { projects } from "../../data/projects";
       <p class="label text-brand-bright">Work</p>
       <h1 class="mt-5 text-5xl sm:text-6xl text-onink">Websites I've built</h1>
       <p class="mt-5 max-w-xl text-lg text-onink-muted">
-        Some of these are live client sites, others are samples built to show what's possible and get your ideas flowing. Click any site to see more information.
+        A sample build below shows what's possible. Real client work is on the
+        way — check back soon.
       </p>
     </div>
   </section>
@@ -21,6 +23,11 @@ import { projects } from "../../data/projects";
       {projects.map((project, i) => (
         <div data-reveal style={`transition-delay:${(i % 2) * 100}ms`}>
           <ProjectCard project={project} compact />
+        </div>
+      ))}
+      {Array.from({ length: comingSoonSlots }).map((_, i) => (
+        <div data-reveal style={`transition-delay:${((projects.length + i) % 2) * 100}ms`}>
+          <ComingSoonCard />
         </div>
       ))}
     </div>

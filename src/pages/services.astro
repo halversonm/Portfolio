@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CtaBand from "../components/CtaBand.astro";
-import { services, packages } from "../data/services";
+import { services, packages, packageScope } from "../data/services";
 ---
 
 <Layout
@@ -16,7 +16,8 @@ import { services, packages } from "../data/services";
       </h1>
       <p class="mt-5 max-w-xl text-lg text-onink-muted">
         I want your site up and running as efficiently as possible, with no
-        confusion. Here's exactly how it works, with 2 packages to choose from.
+        confusion. Here's exactly how it works, plus pricing for every size of
+        project.
       </p>
     </div>
   </section>
@@ -60,7 +61,7 @@ import { services, packages } from "../data/services";
         Pick the package that fits your business — no hidden fees or surprises.
       </p>
 
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
+      <div class="mt-10 grid gap-6 md:grid-cols-3">
         {
           packages.map((pkg, i) => (
             <div
@@ -108,9 +109,52 @@ import { services, packages } from "../data/services";
                   </li>
                 ))}
               </ul>
+              {pkg.contactCta && (
+                <a
+                  href="/contact"
+                  class="mt-6 inline-flex items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-md"
+                >
+                  Get in touch <span aria-hidden="true">→</span>
+                </a>
+              )}
             </div>
           ))
         }
+      </div>
+
+      <div
+        data-reveal
+        class="mt-10 rounded-[var(--radius-card)] border-2 border-brand/20 bg-paper p-8 shadow-md sm:p-10"
+      >
+        <p class="label text-brand">More Information</p>
+        <h3 class="mt-2 text-2xl sm:text-3xl">Things to Note</h3>
+        <div class="mt-6 grid gap-8 sm:grid-cols-2">
+          <div>
+            <p class="text-muted">{packageScope.note}</p>
+            <ul class="mt-4 space-y-2 text-sm">
+              {packageScope.includes.map((item) => (
+                <li class="flex gap-2">
+                  <span class="text-brand" aria-hidden="true">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p class="text-muted">
+              Websites that include more complex features like the things below will need a{" "}
+              <span class="font-semibold text-ink">custom quote</span> instead:
+            </p>
+            <ul class="mt-4 space-y-2 text-sm text-muted">
+              {packageScope.excludes.map((item) => (
+                <li class="flex gap-2">
+                  <span aria-hidden="true">→</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
