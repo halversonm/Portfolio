@@ -22,6 +22,30 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "red-oak-land-clearing",
+    title: "A site that turns overgrown acreage into booked jobs",
+    client: "Red Oak Land Clearing",
+    domain: "redoaklandclearing.com",
+    trade: "Land clearing & forestry mulching",
+    year: 2025,
+    summary:
+      "A trust-first site for a family-owned land clearing crew: free on-site estimates front and center, a recent-work photo gallery showing real cleared land, and a clear service-area list across East Texas.",
+    highlights: [
+      "Free on-site estimates with a written quote in 48 hours",
+      "Recent-work photo gallery showing real cleared land",
+      "Clear service-area list across East Texas",
+    ],
+    services: ["Design", "Astro build", "Copywriting"],
+    screenshot: "/work/red-oak-land-clearing.png",
+    accent: "#8a2e22",
+    results: [
+      { label: "Estimate requests / mo", value: "5 → 14" },
+      { label: "Avg. job size", value: "+22%" },
+    ],
+    liveUrl: "https://halverson-land-clear-demo.netlify.app/",
+    sample: true,
+  },
+  {
     slug: "cedar-stone-landscape",
     title: "A website that sells design quality before the first site walk",
     client: "Cedar & Stone Landscape Co.",
