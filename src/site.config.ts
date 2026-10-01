@@ -9,7 +9,7 @@ export const site = {
   // separate from the tagline above so the homepage headline can stay punchier.
   seoTitle: "Custom web development for blue-collar businesses",
   description:
-    "Custom websites that load fast, look great on every device, and don't get between you and your customers.",
+    "Custom websites that load fast, look great on every device, and turn visitors into customers.",
   email: "max@halversonweb.com",
   phone: "(952) 213-9678",
   location: "Minneapolis–St. Paul, MN",
