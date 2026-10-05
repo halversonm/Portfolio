@@ -121,7 +121,7 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
                     />
                   </svg>
                 </span>
-                <div class:list={isLast && "sm:max-w-xl"}>
+                <div class:list={[isLast && "sm:max-w-xl"]}>
                   <h3 class="font-display text-lg font-semibold">
                     {item.title}
                   </h3>
@@ -344,13 +344,13 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
     const speed = 45;
     const startDelay = 300;
 
-    function typeNext() {
-      el.textContent = text.slice(0, i);
+    function typeNext(target: HTMLElement) {
+      target.textContent = text.slice(0, i);
       i++;
-      if (i <= text.length) setTimeout(typeNext, speed);
+      if (i <= text.length) setTimeout(typeNext, speed, target);
     }
 
-    setTimeout(typeNext, startDelay);
+    setTimeout(typeNext, startDelay, el);
   }
 </script>
 
@@ -364,9 +364,9 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
     ).matches;
 
     let index = 0;
-    let timer;
+    let timer: ReturnType<typeof setInterval> | undefined;
 
-    function show(next) {
+    function show(next: number) {
       index = next;
       slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
       dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));

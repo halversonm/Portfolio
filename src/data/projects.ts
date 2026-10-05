@@ -22,6 +22,26 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "elmberg-properties",
+    title: "A site that turns landowners into cash-offer requests",
+    client: "Elmberg Properties",
+    domain: "elmbergproperties.com",
+    trade: "Land buying",
+    year: 2026,
+    summary:
+      "A conversion-focused site for a land-buying company: a fast cash-offer form and click-to-call up front, a simple three-step process, and a side-by-side comparison showing sellers why a direct sale beats listing with a realtor.",
+    highlights: [
+      "Modernized redesign of their website",
+      "Stronger trust signals",
+      "Clear call to actions",
+    ],
+    services: ["Design", "Astro build", "Copywriting"],
+    screenshot: "/work/elmberg-properties.png",
+    accent: "#c9a14a",
+    results: [],
+    liveUrl: "https://elmbergproperties.com/",
+  },
+  {
     slug: "red-oak-land-clearing",
     title: "A site that turns overgrown acreage into booked jobs",
     client: "Red Oak Land Clearing",
@@ -46,30 +66,6 @@ export const projects: Project[] = [
     sample: true,
   },
   {
-    slug: "cedar-stone-landscape",
-    title: "A website that sells design quality before the first site walk",
-    client: "Cedar & Stone Landscape Co.",
-    domain: "cedarandstonelandscape.com",
-    trade: "Landscape design & build",
-    year: 2025,
-    summary:
-      "A design-led landscaping company: a site-plan diagram for every project, a clear four-phase process, and a site-walk request form that keeps the pipeline full through the off-season.",
-    highlights: [
-      "Showcase real, completed projects with before/after photos",
-      "Communicate their design-to-build process in a way that's easy to follow",
-      "Clearly display company service area",
-    ],
-    services: ["Design", "Astro build", "Copywriting"],
-    screenshot: "/work/cedar-stone-landscape.png",
-    accent: "#3f5e2f",
-    results: [
-      { label: "Site walk requests / mo", value: "4 → 15" },
-      { label: "Avg. project value", value: "+30%" },
-    ],
-    liveUrl: "https://halverson-landscape-demo.netlify.app/#top",
-    sample: true,
-  },
-  {
     slug: "ironwood-plumbing-heating-cooling",
     title: "A site built to get the phone ringing, day or night",
     client: "Ironwood Plumbing, Heating & Cooling",
@@ -91,6 +87,30 @@ export const projects: Project[] = [
       { label: "Free-quote requests / mo", value: "3 → 11" },
     ],
     liveUrl: "https://halverson-hvac-demo.netlify.app/",
+    sample: true,
+  },
+  {
+    slug: "cedar-stone-landscape",
+    title: "A website that sells design quality before the first site walk",
+    client: "Cedar & Stone Landscape Co.",
+    domain: "cedarandstonelandscape.com",
+    trade: "Landscape design & build",
+    year: 2025,
+    summary:
+      "A design-led landscaping company: a site-plan diagram for every project, a clear four-phase process, and a site-walk request form that keeps the pipeline full through the off-season.",
+    highlights: [
+      "Showcase real, completed projects with before/after photos",
+      "Communicate their design-to-build process in a way that's easy to follow",
+      "Clearly display company service area",
+    ],
+    services: ["Design", "Astro build", "Copywriting"],
+    screenshot: "/work/cedar-stone-landscape.png",
+    accent: "#3f5e2f",
+    results: [
+      { label: "Site walk requests / mo", value: "4 → 15" },
+      { label: "Avg. project value", value: "+30%" },
+    ],
+    liveUrl: "https://halverson-landscape-demo.netlify.app/#top",
     sample: true,
   },
 ];
