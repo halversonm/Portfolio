@@ -22,11 +22,31 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "jl-onyx",
+    title: "A booking-first site for a premium ride",
+    client: "JL Onyx",
+    domain: "jlonyx.com",
+    trade: "Private black car service",
+    year: 2026,
+    summary:
+      "A booking-first site for a Twin Cities private black car service: one-tap booking and call buttons throughout, a zoomable photo gallery of the executive SUV, and a clear 200-mile service area with airports and cities.",
+    highlights: [
+      "Link booking buttons to their payment portal",
+      "Showcase their vehicle with a zoomable photo gallery",
+      "Luxury website design to match their business",
+    ],
+    services: ["Design", "Development"],
+    screenshot: "/work/jl-onyx.png",
+    accent: "#111111",
+    results: [],
+    liveUrl: "https://jlonyx.com/",
+  },
+  {
     slug: "elmberg-properties",
     title: "A site that turns landowners into cash-offer requests",
     client: "Elmberg Properties",
     domain: "elmbergproperties.com",
-    trade: "Land buying",
+    trade: "Land acquisition",
     year: 2026,
     summary:
       "A conversion-focused site for a land-buying company: a fast cash-offer form and click-to-call up front, a simple three-step process, and a side-by-side comparison showing sellers why a direct sale beats listing with a realtor.",
