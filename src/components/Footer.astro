@@ -35,7 +35,7 @@ const year = new Date().getFullYear();
     <div>
       <p class="label text-base! text-onink-muted">Contact</p>
       <ul class="mt-4 space-y-2.5 text-sm">
-        <li><a href={`mailto:${site.email}`} class="text-onink hover:text-brand-bright">{site.email}</a></li>
+        <li><!--email_off--><a href={`mailto:${site.email}`} class="text-onink hover:text-brand-bright">{site.email}</a><!--/email_off--></li>
         <li><a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`} class="text-onink hover:text-brand-bright">{site.phone}</a></li>
         {site.socials.map((s) => (
           <li><a href={s.href} class="text-onink hover:text-brand-bright">{s.label}</a></li>

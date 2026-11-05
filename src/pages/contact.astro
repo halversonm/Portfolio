@@ -20,6 +20,7 @@ const fieldLabel = "font-display font-semibold text-sm";
 
       <ul class="mt-10 space-y-3">
         <li data-reveal>
+          <!--email_off-->
           <a
             class="spotlight group flex items-center gap-4 rounded-[var(--radius-chip)] border border-line bg-surface p-4 transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-md"
             href={`mailto:${site.email}`}
@@ -32,6 +33,7 @@ const fieldLabel = "font-display font-semibold text-sm";
               <span class="mt-0.5 block font-medium">{site.email}</span>
             </span>
           </a>
+          <!--/email_off-->
         </li>
         <li data-reveal style="transition-delay:90ms">
           <a
@@ -129,7 +131,7 @@ const fieldLabel = "font-display font-semibold text-sm";
         Send inquiry <span aria-hidden="true">→</span>
       </button>
       <p class="text-xs text-muted">
-        Prefer email? Write to <a class="underline" href={`mailto:${site.email}`}>{site.email}</a>.
+        Prefer email? Write to <!--email_off--><a class="underline" href={`mailto:${site.email}`}>{site.email}</a><!--/email_off-->.
       </p>
     </form>
   </section>

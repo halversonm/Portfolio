@@ -34,12 +34,14 @@ const { heading = "Ready? Get started now" } = Astro.props;
       >
         Get Started <span aria-hidden="true">→</span>
       </a>
+      <!--email_off-->
       <a
         href={`mailto:${site.email}`}
         class="inline-flex items-center gap-1.5 rounded-full border border-white/40 px-6 py-3 font-display font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
       >
         {site.email}
       </a>
+      <!--/email_off-->
     </div>
   </div>
 </section>
