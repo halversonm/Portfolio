@@ -8,6 +8,10 @@ export default defineConfig({
   // Used for canonical URLs and OG tags. Update at launch.
   site: 'https://halversonweb.com',
 
+  // Warm a page when someone shows intent (hovering a link). The mobile menu does the same
+  // when it opens (see effects.ts). Nothing is downloaded up front, so first load stays light.
+  prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
+
   // Self-hosted at build time (no render-blocking request to Google, and Astro
   // generates size-matched fallback fonts so the page doesn't jump when they load).
   fonts: [

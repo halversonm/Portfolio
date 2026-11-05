@@ -7,6 +7,8 @@
  * are skipped for `prefers-reduced-motion` / touch devices.
  */
 
+import { prefetch } from "astro:prefetch";
+
 type Cleanup = () => void;
 
 const mq = (q: string) => window.matchMedia(q).matches;
@@ -119,6 +121,8 @@ function initMobileMenu() {
     btn.setAttribute("aria-expanded", String(open));
     btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     root.classList.toggle("menu-open", open); // locks page scroll behind the menu
+    // They're about to tap one of these links, so start fetching the pages now
+    if (open) panel.querySelectorAll<HTMLAnchorElement>("a[href]").forEach((a) => prefetch(a.href));
   };
 
   const toggle = () => setOpen(!isOpen());

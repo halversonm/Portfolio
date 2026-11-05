@@ -396,3 +396,21 @@ html.menu-open .to-top {
   opacity: 0;
   visibility: hidden;
 }
+
+/* ---- Phones: skip the costliest decorative effects (smoother page loads) ---- */
+@media (max-width: 767px) {
+  .noise::after {
+    display: none; /* the blended grain layer is invisible at this size but costly to composite */
+  }
+  .aurora > i {
+    filter: blur(56px);
+  }
+  .aurora > i:nth-child(3) {
+    display: none;
+  }
+  /* swap pages instantly instead of cross-fading two full-screen snapshots */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

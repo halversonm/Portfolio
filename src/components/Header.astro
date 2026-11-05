@@ -6,7 +6,7 @@ const isActive = (href: string) =>
   href === "/" ? path === "/" : path.startsWith(href);
 ---
 
-<header class="sticky top-0 z-40 border-b border-white/10 bg-ink/85 text-onink backdrop-blur-md">
+<header class="sticky top-0 z-40 border-b border-white/10 bg-ink text-onink md:bg-ink/85 md:backdrop-blur-md">
   <div class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
     <a href="/" class="flex items-center">
       <img
@@ -96,7 +96,7 @@ const isActive = (href: string) =>
         Get Started <span aria-hidden="true">→</span>
       </a>
       <p class="mt-4 text-center text-sm text-onink-muted">
-        or call <a class="font-semibold text-onink underline decoration-white/30 underline-offset-4" href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}>{site.phone}</a>
+        or call <a class="font-display text-base font-semibold text-onink underline decoration-white/30 underline-offset-4" href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}>{site.phone}</a>
       </p>
     </div>
   </div>
@@ -220,14 +220,19 @@ const isActive = (href: string) =>
     transform: none;
     transition-delay: calc(60ms + var(--i) * 45ms);
   }
+  header:not([data-open]) .menu-panel {
+    transition-duration: 0.18s;
+  }
+  header:not([data-open]) .menu-item {
+    transition-duration: 0.12s;
+  }
 
   /* ---------- Backdrop ---------- */
   .menu-backdrop {
     position: fixed;
     inset: 0;
     z-index: 30;
-    background: rgba(8, 10, 11, 0.6);
-    backdrop-filter: blur(4px);
+    background: rgba(8, 10, 11, 0.7);
     opacity: 0;
     visibility: hidden;
     transition:
