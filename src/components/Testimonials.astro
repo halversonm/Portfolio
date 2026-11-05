@@ -1,0 +1,31 @@
+---
+/**
+ * Client testimonials band. NOT used on any page yet — the quotes in
+ * src/data/testimonials.ts are placeholders. Once there are real reviews
+ * (with permission), swap the data and add <Testimonials /> to the homepage.
+ */
+import { testimonials } from "../data/testimonials";
+---
+
+<section class="bg-ink text-onink">
+  <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+    <p class="label text-brand-bright">What clients say</p>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {
+        testimonials.map((t, i) => (
+          <figure
+            data-reveal
+            style={`transition-delay:${i * 100}ms`}
+            class="rounded-[var(--radius-card)] border border-white/10 bg-ink-soft p-7"
+          >
+            <span aria-hidden="true" class="font-display text-4xl text-brand-bright">“</span>
+            <blockquote class="mt-1 text-onink">{t.quote}</blockquote>
+            <figcaption class="mt-4 text-sm text-onink-muted">
+              <span class="font-semibold text-onink">{t.name}</span> — {t.role}
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

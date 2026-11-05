@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 import StepTimeline from "../components/StepTimeline.astro";
 import CtaBand from "../components/CtaBand.astro";
+import CheckBadge from "../components/CheckBadge.astro";
 import { services, packages, packageScope } from "../data/services";
 
 const steps = services.map((s) => ({ name: s.name, text: s.blurb, includes: s.includes }));
@@ -85,17 +86,7 @@ const steps = services.map((s) => ({ name: s.name, text: s.blurb, includes: s.in
               <ul class="relative mt-6 flex-1 space-y-3 text-sm">
                 {pkg.points.map((p) => (
                   <li class="flex gap-3">
-                    <span
-                      class:list={[
-                        "mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full",
-                        pkg.featured ? "bg-brand text-white" : "bg-brand-tint text-brand",
-                      ]}
-                      aria-hidden="true"
-                    >
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5">
-                        <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                    </span>
+                    <CheckBadge tone={pkg.featured ? "solid" : "tint"} />
                     <span>{p}</span>
                   </li>
                 ))}
@@ -103,7 +94,7 @@ const steps = services.map((s) => ({ name: s.name, text: s.blurb, includes: s.in
               {pkg.contactCta && (
                 <a
                   href="/contact"
-                  class="relative mt-7 inline-flex w-fit items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-md"
+                  class="relative mt-7 btn-primary w-fit px-5 py-2.5"
                 >
                   Get in touch <span aria-hidden="true">→</span>
                 </a>
@@ -111,7 +102,7 @@ const steps = services.map((s) => ({ name: s.name, text: s.blurb, includes: s.in
               {pkg.featured && (
                 <a
                   href="/contact"
-                  class="relative mt-7 inline-flex w-fit items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-bright hover:shadow-md"
+                  class="relative mt-7 btn-primary w-fit px-5 py-2.5 hover:bg-brand-bright!"
                 >
                   Get started <span aria-hidden="true">→</span>
                 </a>
@@ -133,11 +124,7 @@ const steps = services.map((s) => ({ name: s.name, text: s.blurb, includes: s.in
             <ul class="mt-4 space-y-2.5 text-sm">
               {packageScope.includes.map((item) => (
                 <li class="flex gap-3">
-                  <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-tint text-brand" aria-hidden="true">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5">
-                      <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                  </span>
+                  <CheckBadge />
                   <span>{item}</span>
                 </li>
               ))}

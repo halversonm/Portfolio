@@ -80,7 +80,7 @@ const hasNext = next && next.slug !== project.slug;
           href={project.liveUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-6 inline-flex items-center gap-1.5 rounded-full bg-brand px-6 py-3 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
+          class="mt-6 btn-primary px-6 py-3"
         >
           Navigate to company site <span aria-hidden="true">→</span>
         </a>
@@ -103,7 +103,7 @@ const hasNext = next && next.slug !== project.slug;
         <div class="mx-auto max-w-6xl px-6 py-16 sm:py-20">
           <p class="label text-brand" data-reveal>Next project</p>
           <div data-reveal="scale" class="mt-8 max-w-lg">
-            <ProjectCard project={next} compact scrollPreview headingLevel="h2" />
+            <ProjectCard project={next} scrollPreview headingLevel="h2" />
           </div>
         </div>
       </section>

@@ -1,4 +1,4 @@
-/** Placeholder service offerings and packages. */
+/** The 3-step process and the pricing packages shown on the Services page. */
 export type Service = {
   name: string;
   blurb: string;

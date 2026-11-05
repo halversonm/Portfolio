@@ -6,10 +6,10 @@ import BrowserFrame from "../components/BrowserFrame.astro";
 import CtaBand from "../components/CtaBand.astro";
 import FoundationCard from "../components/FoundationCard.astro";
 import HandsOff from "../components/HandsOff.astro";
+import StepTimeline from "../components/StepTimeline.astro";
 import { site } from "../site.config";
 import { projects } from "../data/projects";
 import { services } from "../data/services";
-// import { testimonials } from "../data/testimonials"; // no real reviews yet — testimonials section disabled below
 import { foundation } from "../data/foundation";
 
 const featured = projects.slice(0, 3);
@@ -27,7 +27,7 @@ const stats = [
 <Layout>
   <!-- Hero -->
   <section class="relative overflow-hidden bg-ink text-onink noise" data-parallax>
-    <div class="aurora hero-aurora" aria-hidden="true">
+    <div class="aurora" aria-hidden="true">
       <i></i><i></i><i></i>
     </div>
     <div class="grid-lines" aria-hidden="true"></div>
@@ -55,13 +55,13 @@ const stats = [
         <div class="mt-10 flex flex-wrap gap-3">
           <a
             href="/contact"
-            class="hero-cta relative inline-flex items-center gap-1.5 rounded-full bg-brand px-7 py-3.5 font-display text-lg font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
+            class="hero-cta relative btn-primary px-7 py-3.5 text-lg"
           >
             Get Started <span aria-hidden="true">→</span>
           </a>
           <a
             href="/work"
-            class="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-7 py-3.5 font-display text-lg font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
+            class="btn-ghost px-7 py-3.5 text-lg"
           >
             See the work
           </a>
@@ -168,29 +168,7 @@ const stats = [
         </a>
       </div>
 
-      <div class="relative pl-14" data-timeline>
-        <div class="timeline-track" aria-hidden="true">
-          <div class="timeline-fill"></div>
-        </div>
-        <ol class="space-y-8">
-          {
-            services.map((service, i) => (
-              <li class="timeline-step relative" data-reveal="right" style={`transition-delay:${i * 80}ms`}>
-                <span
-                  class="timeline-dot absolute -left-14 top-5 grid h-9 w-9 place-items-center rounded-full border-2 font-display text-sm font-semibold"
-                  aria-hidden="true"
-                >
-                  0{i + 1}
-                </span>
-                <div class="spotlight rounded-[var(--radius-card)] border border-line bg-surface p-7 shadow-sm transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <h3 class="text-2xl">{service.name}</h3>
-                  <p class="mt-2.5 text-muted">{service.blurb}</p>
-                </div>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
+      <StepTimeline compact steps={services.map((s) => ({ name: s.name, text: s.blurb }))} />
     </div>
    </div>
   </section>
@@ -218,7 +196,7 @@ const stats = [
         {
           featured.map((project, i) => (
             <div data-reveal="scale" style={`transition-delay:${i * 110}ms`}>
-              <ProjectCard project={project} compact scrollPreview dark />
+              <ProjectCard project={project} scrollPreview dark />
             </div>
           ))
         }
@@ -232,37 +210,6 @@ const stats = [
       </div>
     </div>
   </section>
-
-  {/* Testimonials — disabled until there are real reviews to show
-  <section class="bg-ink text-onink">
-    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-      <p class="label text-brand-bright">Word from the field</p>
-      <div class="mt-12 grid gap-6 md:grid-cols-3">
-        {
-          testimonials.map((t, i) => (
-            <figure
-              data-reveal
-              style={`transition-delay:${i * 100}ms`}
-              class="rounded-[var(--radius-card)] border border-white/10 bg-ink-soft p-7"
-            >
-              <span
-                aria-hidden="true"
-                class="font-display text-4xl text-brand-bright"
-              >
-                “
-              </span>
-              <blockquote class="mt-1 text-onink">{t.quote}</blockquote>
-              <figcaption class="mt-4 text-sm text-onink-muted">
-                <span class="font-semibold text-onink">{t.name}</span> —{" "}
-                {t.role}
-              </figcaption>
-            </figure>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-  */}
 
   <CtaBand />
 </Layout>
@@ -305,11 +252,6 @@ const stats = [
     100% {
       box-shadow: 0 0 0 10px rgba(92, 174, 122, 0);
     }
-  }
-
-  /* Parallax: --sy (scrollY) is set on the hero by effects.ts */
-  .hero-aurora {
-    transform: translate3d(0, calc(var(--sy, 0) * 0.18px), 0);
   }
 
   /* Stacked "deck" of project screenshots */
@@ -404,9 +346,6 @@ const stats = [
     }
     .hero-caret {
       display: none;
-    }
-    .hero-aurora {
-      transform: none;
     }
     .deck {
       transform: none;

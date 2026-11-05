@@ -43,11 +43,12 @@ This site auto-deploys to Netlify on every push to `main`.
 
 ```
 src/
-  components/     Reusable UI components
-  data/           Site data (e.g. packages, process steps)
-  layouts/        Page layout templates
+  components/     Reusable UI (PageHero, StepTimeline, ProjectCard, ...)
+  data/           Site content: projects, services & pricing, foundation items
+  layouts/        Page layout template (head, header/footer, page transitions)
   pages/          Site pages (routes)
-  styles/         Global/shared styles
+  scripts/        effects.ts — all motion/interaction (reveals, tilt, hover previews)
+  styles/         global.css — design tokens, button styles, effect styles
   site.config.ts  Site-wide config (name, links, etc.)
-public/           Static assets (images, favicon, etc.)
+public/           Static assets; public/work holds project screenshots
 ```

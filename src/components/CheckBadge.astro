@@ -1,0 +1,30 @@
+---
+/** Round check-mark bullet used in feature lists. */
+interface Props {
+  /** `tint` = soft green wash, `solid` = filled brand green. */
+  tone?: "tint" | "solid";
+  size?: "sm" | "md";
+}
+const { tone = "tint", size = "sm" } = Astro.props;
+const big = size === "md";
+---
+
+<span
+  class:list={[
+    "mt-0.5 grid shrink-0 place-items-center rounded-full",
+    big ? "h-7 w-7" : "h-5 w-5",
+    tone === "solid" ? "bg-brand text-white" : "bg-brand-tint text-brand",
+  ]}
+  aria-hidden="true"
+>
+  <svg
+    width={big ? 14 : 11}
+    height={big ? 14 : 11}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width={big ? 3 : 3.5}
+  >
+    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</span>

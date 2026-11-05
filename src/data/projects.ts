@@ -1,4 +1,7 @@
-/** Placeholder portfolio projects. Replace with your real client work. */
+/**
+ * Portfolio projects, newest first (the homepage shows the first 3).
+ * Demo builds are flagged `sample: true`; real clients are not, and have `results: []`.
+ */
 export type Project = {
   slug: string;
   title: string;

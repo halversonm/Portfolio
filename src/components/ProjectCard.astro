@@ -4,7 +4,6 @@ import BrowserFrame from "./BrowserFrame.astro";
 import SampleBadge from "./SampleBadge.astro";
 interface Props {
   project: Project;
-  compact?: boolean;
   /** Scroll through the site's full-page image on hover (uses project.fullPage). */
   scrollPreview?: boolean;
   /** Style for dark section backgrounds. */
@@ -12,7 +11,7 @@ interface Props {
   /** Heading level for the project name, so pages don't skip levels. */
   headingLevel?: "h2" | "h3";
 }
-const { project, compact = false, scrollPreview = false, dark = false, headingLevel = "h3" } = Astro.props;
+const { project, scrollPreview = false, dark = false, headingLevel = "h3" } = Astro.props;
 const Heading = headingLevel;
 ---
 
@@ -30,24 +29,13 @@ const Heading = headingLevel;
       <p class:list={["label", dark ? "text-brand-bright" : "text-brand"]}>{project.trade}</p>
       {project.sample && <SampleBadge />}
     </div>
-    {compact ? (
-      <Heading class:list={["mt-1.5 text-lg font-display font-semibold transition-colors", dark ? "group-hover:text-brand-bright" : "group-hover:text-brand"]}>
-        {project.client}
-      </Heading>
-    ) : (
-      <>
-        <Heading class="mt-1.5 text-xl font-display group-hover:text-brand transition-colors">
-          {project.title}
-        </Heading>
-        <p class="mt-2 text-sm text-muted">{project.summary}</p>
-        <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-          <span>{project.client}</span>
-          <span aria-hidden="true">·</span>
-          <span>{project.year}</span>
-          <span aria-hidden="true">·</span>
-          <span>{project.services.join(", ")}</span>
-        </div>
-      </>
-    )}
+    <Heading
+      class:list={[
+        "mt-1.5 text-lg font-display font-semibold transition-colors",
+        dark ? "group-hover:text-brand-bright" : "group-hover:text-brand",
+      ]}
+    >
+      {project.client}
+    </Heading>
   </div>
 </a>

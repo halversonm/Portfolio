@@ -1,4 +1,4 @@
-/** Placeholder client testimonials. Swap for real quotes with permission. */
+/** Placeholder client testimonials (not shown yet — see components/Testimonials.astro). Swap for real quotes with permission. */
 export type Testimonial = {
   quote: string;
   name: string;

@@ -1,4 +1,5 @@
 ---
+import CheckBadge from "./CheckBadge.astro";
 /**
  * Vertical process timeline: a green line fills as you scroll and each step
  * lights up when reached (driven by src/scripts/effects.ts via [data-timeline]).
@@ -11,8 +12,10 @@ interface Step {
 }
 interface Props {
   steps: Step[];
+  /** Tighter cards, for use beside other content (e.g. the homepage). */
+  compact?: boolean;
 }
-const { steps } = Astro.props;
+const { steps, compact = false } = Astro.props;
 ---
 
 <div class="relative pl-14" data-timeline>
@@ -24,31 +27,31 @@ const { steps } = Astro.props;
       steps.map((step, i) => (
         <li class="timeline-step relative" data-reveal="right" style={`transition-delay:${i * 80}ms`}>
           <span
-            class="timeline-dot absolute -left-14 top-6 grid h-9 w-9 place-items-center rounded-full border-2 font-display text-sm font-semibold"
+            class:list={[
+              "timeline-dot absolute -left-14 grid h-9 w-9 place-items-center rounded-full border-2 font-display text-sm font-semibold",
+              compact ? "top-5" : "top-6",
+            ]}
             aria-hidden="true"
           >
             0{i + 1}
           </span>
           <div
             class:list={[
-              "spotlight rounded-[var(--radius-card)] border border-line bg-surface p-7 shadow-sm transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-8",
+              "spotlight rounded-[var(--radius-card)] border border-line bg-surface p-7 shadow-sm transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg",
+              !compact && "sm:p-8",
               step.includes?.length && "grid gap-6 md:grid-cols-[1fr_1.1fr] md:items-center",
             ]}
           >
             <div>
-              <h3 class="text-2xl sm:text-3xl">{step.name}</h3>
-              <p class="mt-3 text-muted">{step.text}</p>
+              <h3 class:list={["text-2xl", !compact && "sm:text-3xl"]}>{step.name}</h3>
+              <p class:list={["text-muted", compact ? "mt-2.5" : "mt-3"]}>{step.text}</p>
             </div>
             {
               step.includes?.length ? (
                 <ul class="space-y-3">
                   {step.includes.map((item) => (
                     <li class="flex gap-3 text-sm">
-                      <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-tint text-brand" aria-hidden="true">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5">
-                          <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                      </span>
+                      <CheckBadge />
                       <span>{item}</span>
                     </li>
                   ))}

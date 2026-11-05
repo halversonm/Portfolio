@@ -1,0 +1,13 @@
+# Keep line endings as LF everywhere (in the repo and in the working folder),
+# so Windows editors and git never disagree.
+* text=auto eol=lf
+
+# Binary assets — never touch
+*.webp binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary

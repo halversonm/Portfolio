@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   // Used for canonical URLs and OG tags. Update at launch.
-  site: 'https://northlight.studio',
+  site: 'https://halversonweb.com',
 
   // Self-hosted at build time (no render-blocking request to Google, and Astro
   // generates size-matched fallback fonts so the page doesn't jump when they load).

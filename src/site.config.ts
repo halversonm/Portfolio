@@ -15,7 +15,7 @@ export const site = {
   location: "Minneapolis–St. Paul, MN",
   url: "https://halversonweb.com", // TODO: confirm domain
   socials: [
-    { label: "Facebook", href: "https://facebook.com" },
+    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61595027308769" },
   ],
 };
 
