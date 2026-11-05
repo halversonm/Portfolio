@@ -387,3 +387,12 @@
     transition: none;
   }
 }
+
+/* ---- Mobile menu open: lock page scroll, tuck the back-to-top button away ---- */
+html.menu-open {
+  overflow: hidden;
+}
+html.menu-open .to-top {
+  opacity: 0;
+  visibility: hidden;
+}

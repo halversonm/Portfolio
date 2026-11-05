@@ -101,6 +101,59 @@ function initScrollLinked(reduceMotion: boolean) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Mobile navigation menu                                              */
+/* ------------------------------------------------------------------ */
+function initMobileMenu() {
+  const btn = document.querySelector<HTMLButtonElement>("[data-menu-btn]");
+  const panel = document.querySelector<HTMLElement>("[data-menu-panel]");
+  const backdrop = document.querySelector<HTMLElement>("[data-menu-backdrop]");
+  const header = btn?.closest("header");
+  if (!btn || !panel || !backdrop || !header) return;
+
+  const root = document.documentElement;
+  const isOpen = () => header.hasAttribute("data-open");
+  const setOpen = (open: boolean) => {
+    header.toggleAttribute("data-open", open);
+    backdrop.toggleAttribute("data-open", open);
+    panel.toggleAttribute("inert", !open); // keeps hidden links out of tab order / screen readers
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    root.classList.toggle("menu-open", open); // locks page scroll behind the menu
+  };
+
+  const toggle = () => setOpen(!isOpen());
+  const close = () => setOpen(false);
+  const onPanelClick = (e: Event) => {
+    if ((e.target as HTMLElement).closest("a")) close();
+  };
+  const onKey = (e: KeyboardEvent) => {
+    if (e.key === "Escape" && isOpen()) {
+      close();
+      btn.focus();
+    }
+  };
+  const desktop = window.matchMedia("(min-width: 768px)");
+  const onBreakpoint = () => {
+    if (desktop.matches) close();
+  };
+
+  setOpen(false);
+  btn.addEventListener("click", toggle);
+  backdrop.addEventListener("click", close);
+  panel.addEventListener("click", onPanelClick);
+  document.addEventListener("keydown", onKey);
+  desktop.addEventListener("change", onBreakpoint);
+  onCleanup(() => {
+    btn.removeEventListener("click", toggle);
+    backdrop.removeEventListener("click", close);
+    panel.removeEventListener("click", onPanelClick);
+    document.removeEventListener("keydown", onKey);
+    desktop.removeEventListener("change", onBreakpoint);
+    root.classList.remove("menu-open");
+  });
+}
+
+/* ------------------------------------------------------------------ */
 /* Back-to-top button                                                  */
 /* ------------------------------------------------------------------ */
 function initBackToTop() {
@@ -375,6 +428,7 @@ function init() {
   const reduceMotion = mq("(prefers-reduced-motion: reduce)");
   initReveal();
   initScrollLinked(reduceMotion);
+  initMobileMenu();
   initBackToTop();
   initCountUp(reduceMotion);
   initPointerEffects(reduceMotion);
