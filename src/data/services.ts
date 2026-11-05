@@ -49,7 +49,7 @@ export const packages = [
     name: "Full Service (recommended)",
     price: "$1000 creation fee + $150 a month",
     fit: "You don't want to worry about hosting or updates, let me handle them for you.",
-    points: ["Fully custom website, built for your business", "Website hosting", "Ongoing monthly support — up to 3 simple updates per month (each typically under 30 minutes); larger requests quoted separately", "No committment, cancel anytime"],
+    points: ["Fully custom website, built for your business", "Website hosting", "Ongoing monthly support — up to 3 simple updates per month (each typically under 30 minutes); larger requests quoted separately", "Every request answered within 24 hours", "No committment, cancel anytime"],
     featured: true,
   },
   {

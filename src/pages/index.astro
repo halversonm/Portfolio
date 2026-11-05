@@ -4,6 +4,8 @@ import ProjectCard from "../components/ProjectCard.astro";
 import ComingSoonCard from "../components/ComingSoonCard.astro";
 import BrowserFrame from "../components/BrowserFrame.astro";
 import CtaBand from "../components/CtaBand.astro";
+import FoundationCard from "../components/FoundationCard.astro";
+import HandsOff from "../components/HandsOff.astro";
 import { site } from "../site.config";
 import { projects } from "../data/projects";
 import { services } from "../data/services";
@@ -12,66 +14,94 @@ import { foundation } from "../data/foundation";
 
 const featured = projects.slice(0, 3);
 const comingSoonCount = Math.max(0, 3 - featured.length);
+
+// Only facts that are true of how I work — no made-up client numbers.
+const stats = [
+  { value: 3, suffix: "", label: "Simple steps from first call to launch" },
+  { value: 2, suffix: "", label: "Rounds of revisions included" },
+  { value: 100, suffix: "%", label: "Custom-built" },
+  { value: 24, suffix: " hrs", label: "Longest you'll wait for a reply to any request" },
+];
 ---
 
 <Layout>
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-ink text-onink">
-    <div
-      class="pointer-events-none absolute -top-32 right-0 h-96 w-96 rounded-full bg-brand/25 blur-3xl"
-      aria-hidden="true"
-    >
+  <section class="relative overflow-hidden bg-ink text-onink noise" data-parallax>
+    <div class="aurora hero-aurora" aria-hidden="true">
+      <i></i><i></i><i></i>
     </div>
+    <div class="grid-lines" aria-hidden="true"></div>
+
     <div
-      class="relative mx-auto max-w-6xl px-6 py-20 sm:py-28 grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center"
+      class="relative mx-auto max-w-6xl px-6 pt-20 pb-16 sm:pt-28 sm:pb-20 grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:items-center"
     >
       <div>
-        <p class="label text-brand-bright">Web Development for blue-collar businesses</p>
-        <h1 class="mt-5 text-5xl sm:text-6xl lg:text-7xl text-onink" aria-label={site.tagline}>
-          <span id="hero-typewriter" data-text={site.tagline} aria-hidden="true">{site.tagline}</span><span class="hero-caret" aria-hidden="true"></span>
+        <p class="label text-brand-bright inline-flex items-center gap-2.5">
+          <span class="relative flex h-2 w-2" aria-hidden="true">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-bright opacity-60"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-brand-bright"></span>
+          </span>
+          Professional web development for small businesses
+        </p>
+        <h1 class="mt-6 text-5xl sm:text-6xl lg:text-[5.25rem] text-onink" aria-label={site.tagline}>
+          <span id="hero-typewriter" data-text={site.tagline} aria-hidden="true">{site.tagline}</span><span class="hero-caret" aria-hidden="true"></span><span id="hero-typewriter-rest" class="invisible" aria-hidden="true"></span>
         </h1>
-        <p class="mt-6 max-w-xl text-lg text-onink-muted">
+        <p class="mt-7 max-w-xl text-lg sm:text-xl text-onink-muted">
           {site.description}
         </p>
-        <div class="mt-9 flex flex-wrap gap-3">
+        <p class="mt-4 max-w-xl font-display text-xl font-semibold text-brand-bright sm:text-2xl">
+          You focus on your business. I'll handle the website.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
           <a
             href="/contact"
-            class="hero-cta relative inline-flex items-center gap-1.5 rounded-full bg-brand px-6 py-3 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
+            class="hero-cta relative inline-flex items-center gap-1.5 rounded-full bg-brand px-7 py-3.5 font-display text-lg font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
           >
             Get Started <span aria-hidden="true">→</span>
           </a>
           <a
             href="/work"
-            class="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-6 py-3 font-display font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
+            class="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-7 py-3.5 font-display text-lg font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
           >
             See the work
           </a>
         </div>
       </div>
 
-      <div data-reveal class="hero-carousel relative">
-        {
-          featured.map((project, i) => (
-            <div class:list={["hero-slide", i === 0 && "is-active"]} data-index={i}>
-              <BrowserFrame
-                domain={project.domain}
-                accent={project.accent}
-                src={project.screenshot}
-              />
-              <p class="mt-3 label text-onink-muted">
-                {project.client} — {project.trade}
-              </p>
-            </div>
-          ))
-        }
+      <div data-reveal="scale" class="hero-stage" data-tilt-area>
+        <div class="deck" data-deck data-tilt="6">
+          {
+            featured.map((project, i) => (
+              <div
+                class="deck-slide"
+                data-slide
+                data-pos={i}
+                data-caption={`${project.client} — ${project.trade}`}
+                aria-hidden={i === 0 ? "false" : "true"}
+              >
+                <BrowserFrame
+                  domain={project.domain}
+                  accent={project.accent}
+                  src={project.screenshot}
+                  alt={i === 0 ? `${project.client} website` : ""}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  sizes="(min-width: 1024px) 520px, 100vw"
+                />
+              </div>
+            ))
+          }
+        </div>
+        <p class="mt-5 text-center label text-onink-muted" data-deck-caption aria-live="polite">
+          {featured[0].client} — {featured[0].trade}
+        </p>
         {
           featured.length > 1 && (
-            <div class="mt-4 flex justify-center gap-2">
+            <div class="mt-2 flex justify-center">
               {featured.map((_, i) => (
                 <button
                   type="button"
+                  data-deck-dot
                   class:list={["hero-dot", i === 0 && "is-active"]}
-                  data-index={i}
                   aria-label={`Show project ${i + 1} of ${featured.length}`}
                 />
               ))}
@@ -80,118 +110,121 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
         }
       </div>
     </div>
+
+    <!-- Stats band -->
+    <div class="relative border-t border-white/10 bg-black/20 backdrop-blur-sm">
+      <dl class="mx-auto grid max-w-6xl gap-y-8 px-6 py-10 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-x-8">
+        {
+          stats.map((s, i) => (
+            <div data-reveal style={`transition-delay:${i * 100}ms`} class="lg:border-l lg:border-white/10 lg:pl-8 first:lg:border-l-0 first:lg:pl-0">
+              <dt class="font-display text-5xl font-semibold tracking-tight text-onink sm:text-6xl">
+                <span data-count={s.value} data-suffix={s.suffix}>{s.value}{s.suffix}</span>
+              </dt>
+              <dd class="mt-2 max-w-[16rem] text-sm text-onink-muted">{s.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
   </section>
+
+  <HandsOff />
 
   <!-- Foundation -->
   <section class="bg-surface border-y border-line">
-    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-      <p class="label text-brand">Core Values</p>
-      <h2 class="mt-3 max-w-2xl text-3xl sm:text-4xl">
+    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+      <p class="label text-brand" data-reveal>Core Values</p>
+      <h2 data-reveal class="mt-3 max-w-2xl text-3xl sm:text-5xl">
         The foundation of every Halverson Web site
       </h2>
-      <div class="mt-12 grid gap-5 sm:grid-cols-2">
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {
-          foundation.map((item, i) => {
-            const isLast = i === foundation.length - 1;
-            return (
-              <div
-                data-reveal
-                style={`transition-delay:${(i % 2) * 90}ms`}
-                class:list={[
-                  "flex gap-5 rounded-[var(--radius-chip)] border border-line bg-paper p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md",
-                  isLast && "sm:col-span-2 sm:items-center",
-                ]}
-              >
-                <span
-                  class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-tint text-brand"
-                  aria-hidden="true"
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2.5"
-                  >
-                    <path
-                      d="M5 13l4 4L19 7"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </span>
-                <div class:list={[isLast && "sm:max-w-xl"]}>
-                  <h3 class="font-display text-lg font-semibold">
-                    {item.title}
-                  </h3>
-                  <p class="mt-1.5 text-sm text-muted">{item.description}</p>
-                </div>
-              </div>
-            );
-          })
+          foundation.map((item, i) => (
+            <FoundationCard item={item} wide={i === 0} delay={(i % 3) * 90} />
+          ))
         }
       </div>
     </div>
   </section>
 
-  <!-- What I do -->
-  <section class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-    <p class="label text-brand">Process</p>
-    <h2 class="mt-3 max-w-2xl text-3xl sm:text-4xl">
-      Building your site consists of 3 steps:
-    </h2>
-    <div class="mt-12 grid gap-6 sm:grid-cols-3">
-      {
-        services.map((service, i) => (
-          <div
-            data-reveal
-            style={`transition-delay:${i * 100}ms`}
-            class="rounded-[var(--radius-card)] border border-line bg-surface p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-          >
-            <span class="grid h-9 w-9 place-items-center rounded-full bg-ink font-display text-sm font-semibold text-onink">
-              0{i + 1}
-            </span>
-            <h3 class="mt-4 text-xl">{service.name}</h3>
-            <p class="mt-2 text-sm text-muted">{service.blurb}</p>
-          </div>
-        ))
-      }
+  <!-- Process: scroll-driven timeline -->
+  <section class="overflow-x-clip">
+   <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+    <div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <p class="label text-brand" data-reveal>Process</p>
+        <h2 data-reveal class="mt-3 text-3xl sm:text-5xl">
+          Building your site consists of 3 steps
+        </h2>
+        <p data-reveal class="mt-5 max-w-md text-muted">
+          No surprises, no jargon — you always know what's happening and what comes next.
+        </p>
+        <a
+          href="/services"
+          data-reveal
+          class="mt-8 inline-flex items-center gap-1.5 font-display font-semibold text-brand hover:text-brand-dark"
+        >
+          Services &amp; pricing <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="relative pl-14" data-timeline>
+        <div class="timeline-track" aria-hidden="true">
+          <div class="timeline-fill"></div>
+        </div>
+        <ol class="space-y-8">
+          {
+            services.map((service, i) => (
+              <li class="timeline-step relative" data-reveal="right" style={`transition-delay:${i * 80}ms`}>
+                <span
+                  class="timeline-dot absolute -left-14 top-5 grid h-9 w-9 place-items-center rounded-full border-2 font-display text-sm font-semibold"
+                  aria-hidden="true"
+                >
+                  0{i + 1}
+                </span>
+                <div class="spotlight rounded-[var(--radius-card)] border border-line bg-surface p-7 shadow-sm transition-[translate,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <h3 class="text-2xl">{service.name}</h3>
+                  <p class="mt-2.5 text-muted">{service.blurb}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
     </div>
-    <a
-      href="/services"
-      class="mt-10 inline-flex items-center gap-1.5 font-display font-semibold text-brand hover:text-brand-dark"
-    >
-      Services &amp; pricing <span aria-hidden="true">→</span>
-    </a>
+   </div>
   </section>
 
-  <!-- Selected work -->
-  <section class="bg-surface border-y border-line">
-    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+  <!-- Selected work: dark showcase with hover scroll-through -->
+  <section class="relative overflow-hidden bg-ink text-onink noise">
+    <div class="showcase-glow" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-6 py-20 sm:py-28">
       <div class="flex items-end justify-between gap-4">
         <div>
-          <p class="label text-brand">Featured work</p>
-          <h2 class="mt-3 text-3xl sm:text-4xl">Recent builds</h2>
+          <p class="label text-brand-bright" data-reveal>Featured work</p>
+          <h2 data-reveal class="mt-3 text-3xl sm:text-5xl text-onink">Recent builds</h2>
+          <p data-reveal class="mt-4 max-w-md text-onink-muted">
+            <span class="hidden [@media(hover:hover)_and_(pointer:fine)]:inline">Hover over a site to scroll through the whole page. </span>Click for the details.
+          </p>
         </div>
         <a
           href="/work"
-          class="font-display font-semibold text-base text-muted hover:text-brand whitespace-nowrap"
+          class="font-display font-semibold text-base text-onink-muted hover:text-brand-bright whitespace-nowrap transition-colors"
         >
           All work →
         </a>
       </div>
-      <div class="mt-12 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
         {
           featured.map((project, i) => (
-            <div data-reveal style={`transition-delay:${i * 100}ms`}>
-              <ProjectCard project={project} compact />
+            <div data-reveal="scale" style={`transition-delay:${i * 110}ms`}>
+              <ProjectCard project={project} compact scrollPreview dark />
             </div>
           ))
         }
         {
           Array.from({ length: comingSoonCount }).map((_, i) => (
-            <div data-reveal style={`transition-delay:${(featured.length + i) * 100}ms`}>
+            <div data-reveal="scale" style={`transition-delay:${(featured.length + i) * 110}ms`}>
               <ComingSoonCard />
             </div>
           ))
@@ -251,12 +284,6 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero-caret {
-      display: none;
-    }
-  }
-
   .hero-cta::before {
     content: "";
     position: absolute;
@@ -280,116 +307,112 @@ const comingSoonCount = Math.max(0, 3 - featured.length);
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .hero-cta::before {
-      animation: none;
-    }
+  /* Parallax: --sy (scrollY) is set on the hero by effects.ts */
+  .hero-aurora {
+    transform: translate3d(0, calc(var(--sy, 0) * 0.18px), 0);
   }
 
-  .hero-slide {
-    display: none;
+  /* Stacked "deck" of project screenshots */
+  .hero-stage {
+    perspective: 1400px;
   }
-  .hero-slide.is-active {
-    display: block;
-    animation: hero-slide-in 0.6s ease;
+  .deck {
+    display: grid;
+    padding-top: 3rem;
+    padding-right: 1.5rem;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    will-change: transform;
+  }
+  .deck-slide {
+    grid-area: 1 / 1;
+    transition:
+      transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1),
+      opacity 0.8s ease,
+      filter 0.8s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .deck-slide[data-pos="0"] {
+    z-index: 3;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0);
+  }
+  .deck-slide[data-pos="1"] {
+    z-index: 2;
+    opacity: 0.55;
+    filter: brightness(0.7) saturate(0.9);
+    transform: translate3d(4.5%, -9%, -60px) scale(0.93);
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .deck-slide[data-pos="2"] {
+    z-index: 1;
+    opacity: 0.28;
+    filter: brightness(0.55) saturate(0.8);
+    transform: translate3d(9%, -18%, -120px) scale(0.86);
+    pointer-events: auto;
+    cursor: pointer;
   }
 
-  @keyframes hero-slide-in {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: none;
-    }
-  }
-
+  /* 24px tap target; the visible dot is drawn by ::before */
   .hero-dot {
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .hero-dot::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 9999px;
-    border: none;
-    padding: 0;
     background: rgba(255, 255, 255, 0.25);
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transform: translate(-50%, -50%);
+    transition:
+      background-color 0.2s ease,
+      width 0.3s ease;
   }
-  .hero-dot:hover {
+  .hero-dot:hover::before {
     background: rgba(255, 255, 255, 0.45);
   }
-  .hero-dot.is-active {
+  .hero-dot.is-active::before {
     background: var(--color-brand-bright);
-    transform: scale(1.25);
+    width: 1.25rem;
+  }
+
+  .showcase-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60rem 28rem at 85% -10%, rgba(92, 174, 122, 0.18), transparent 65%),
+      radial-gradient(48rem 24rem at 0% 110%, rgba(45, 90, 61, 0.35), transparent 65%);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-slide.is-active {
+    .hero-caret,
+    .hero-cta::before {
       animation: none;
+    }
+    .hero-caret {
+      display: none;
+    }
+    .hero-aurora {
+      transform: none;
+    }
+    .deck {
+      transform: none;
+    }
+    .deck-slide {
+      transition: none;
     }
   }
 </style>
-
-<script>
-  const el = document.getElementById("hero-typewriter");
-  const reduceMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-
-  if (el && !reduceMotion) {
-    const text = el.dataset.text ?? el.textContent ?? "";
-    el.textContent = "";
-
-    let i = 0;
-    const speed = 45;
-    const startDelay = 300;
-
-    function typeNext(target: HTMLElement) {
-      target.textContent = text.slice(0, i);
-      i++;
-      if (i <= text.length) setTimeout(typeNext, speed, target);
-    }
-
-    setTimeout(typeNext, startDelay, el);
-  }
-</script>
-
-<script>
-  const carousel = document.querySelector(".hero-carousel");
-  if (carousel) {
-    const slides = [...carousel.querySelectorAll(".hero-slide")];
-    const dots = [...carousel.querySelectorAll(".hero-dot")];
-    const reduceMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    let index = 0;
-    let timer: ReturnType<typeof setInterval> | undefined;
-
-    function show(next: number) {
-      index = next;
-      slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
-      dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
-    }
-
-    function start() {
-      if (reduceMotion || slides.length < 2) return;
-      clearInterval(timer);
-      timer = setInterval(() => show((index + 1) % slides.length), 4500);
-    }
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener("click", () => {
-        show(i);
-        start();
-      });
-    });
-
-    if (slides.length > 1) {
-      carousel.addEventListener("mouseenter", () => clearInterval(timer));
-      carousel.addEventListener("mouseleave", start);
-    }
-
-    start();
-  }
-</script>

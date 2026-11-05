@@ -1,54 +1,70 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
 import { site } from "../site.config";
 ---
 
 <Layout title="Thank you" description="Your message has been sent.">
-  <section class="bg-ink text-onink">
-    <div class="mx-auto max-w-2xl px-6 py-24 sm:py-32 text-center">
-      <span
-        class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand-tint text-brand"
-        aria-hidden="true"
-      >
-        <svg
-          width="30"
-          height="30"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-        >
-          <path
-            d="M5 13l4 4L19 7"
-            stroke-linecap="round"
-            stroke-linejoin="round"></path>
-        </svg>
-      </span>
-
-      <p class="label mt-6 text-brand-bright">Message sent</p>
-      <h1 class="mt-4 text-4xl sm:text-5xl text-onink">
-        Thanks — it's on its way
-      </h1>
-      <p class="mt-5 text-lg text-onink-muted">
-        I've got your message and will reply within two business days. I look
-        forward to connecting with you.
-      </p>
-
-      <div class="mt-10 flex flex-wrap justify-center gap-3">
+  <PageHero label="Message sent" title="Thanks — it's on its way" align="center" width="max-w-3xl">
+    <span slot="before" class="thanks-check mx-auto mb-8 grid h-20 w-20 place-items-center rounded-full bg-brand text-white shadow-[0_0_0_10px_rgba(92,174,122,0.15)]" aria-hidden="true">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+        <path class="thanks-tick" d="M5 13l4 4L19 7" pathLength="1" />
+      </svg>
+    </span>
+    I've got your message and will reply within two business days. I look
+    forward to connecting with you.
+    <Fragment slot="after">
+      <div class="flex flex-wrap justify-center gap-3">
         <a
           href="/"
           class="inline-flex items-center gap-1.5 rounded-full bg-brand px-6 py-3 font-display font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-dark hover:shadow-lg"
         >
           Back home <span aria-hidden="true">→</span>
         </a>
+        <a
+          href="/work"
+          class="inline-flex items-center gap-1.5 rounded-full border border-white/25 px-6 py-3 font-display font-semibold transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/10"
+        >
+          See the work
+        </a>
       </div>
-
       <p class="mt-8 text-sm text-onink-muted">
         Or write to <a
           class="underline hover:text-brand-bright"
           href={`mailto:${site.email}`}>{site.email}</a
         >
       </p>
-    </div>
-  </section>
+    </Fragment>
+  </PageHero>
 </Layout>
+
+<style>
+  .thanks-tick {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: thanks-draw 0.7s ease 0.35s forwards;
+  }
+  @keyframes thanks-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .thanks-check {
+    animation: thanks-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  @keyframes thanks-pop {
+    from {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .thanks-tick {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+    .thanks-check {
+      animation: none;
+    }
+  }
+</style>

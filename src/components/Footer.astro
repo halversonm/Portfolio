@@ -3,8 +3,9 @@ import { site, nav } from "../site.config";
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-ink text-onink">
-  <div class="mx-auto max-w-6xl px-6 py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+<footer class="relative overflow-hidden bg-ink text-onink noise">
+  <div class="footer-glow" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-6 py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
     <div class="lg:col-span-2">
       <p class="font-display text-xl font-semibold tracking-tight">
         {site.name}
@@ -43,7 +44,7 @@ const year = new Date().getFullYear();
     </div>
   </div>
 
-  <div class="border-t border-white/10">
+  <div class="relative border-t border-white/10">
     <div class="mx-auto max-w-6xl px-6 py-6 text-xs text-onink flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
       <p>© {year} {site.name}</p>
       <p>{site.location}</p>

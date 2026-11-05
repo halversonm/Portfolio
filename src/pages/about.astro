@@ -1,21 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import StepTimeline from "../components/StepTimeline.astro";
 import CtaBand from "../components/CtaBand.astro";
 import { site } from "../site.config";
 
 const process = [
   {
-    step: "01",
     name: "Consult & Design",
     text: "I learn about your business and we figure out your website needs and decide how you want the site to look.",
   },
   {
-    step: "02",
     name: "Build & Refine",
     text: "I'll build a draft of your site and share it with you. From there, we'll refine it together — up to 2 rounds of revisions are included, with more available if needed — until it's ready to go live.",
   },
   {
-    step: "03",
     name: "Launch",
     text: "Your site is published and made live — ready to bring in calls and new customers. Final quality checks are conducted.",
   },
@@ -23,53 +22,54 @@ const process = [
 ---
 
 <Layout title="About" description={`About ${site.name}.`}>
-  <section class="bg-ink text-onink">
-    <div class="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-      <p class="label text-brand-bright">About</p>
-      <h1 class="mt-5 text-5xl sm:text-6xl text-onink">
-        Welcome to Halverson Web
-      </h1>
-      <div class="mt-8 space-y-5 text-lg leading-relaxed text-onink-muted">
-        <p>I'm glad you're here — let me tell you about myself.</p>
-        <p>
-          I'm Max — a web developer based in the Twin Cities who is focused on
-          building fast, content-driven websites for blue-collar businesses. I
-          have a background in software QA, so I bring a sharp eye for detail
-          and reliability to every site I build. My goal for every client is to
-          create a site that loads fast, looks great, works correctly on every
-          device, and doesn't get in the way of customers trying to reach them.
-        </p>
-        <p>
-          When I'm not building websites, you'll most likely find me fishing,
-          watching sports, or on the golf course. Thank you so much for
-          considering me as your web developer, I look forward to speaking with
-          you!
-        </p>
-      </div>
+  <PageHero label="About" title="Welcome to Halverson Web" width="max-w-4xl">
+    I'm glad you're here — let me tell you about myself.
+  </PageHero>
+
+  <!-- Story -->
+  <section class="mx-auto max-w-3xl px-6 pt-16 sm:pt-24">
+    <div class="space-y-6 text-lg leading-relaxed text-ink/85">
+      <p data-reveal class="text-2xl leading-snug text-ink sm:text-3xl font-display font-semibold">
+        I'm Max — a web developer based in the Twin Cities, building fast,
+        content-driven websites for small businesses.
+      </p>
+      <p data-reveal>
+        I have a background in software QA, so I bring a sharp eye for detail
+        and reliability to every site I build. My goal for every client is to
+        create a site that loads fast, looks great, works correctly on every
+        device, and doesn't get in the way of customers trying to reach them.
+      </p>
+      <blockquote
+        data-reveal="left"
+        class="rounded-[var(--radius-card)] border-l-4 border-brand bg-brand-tint/60 px-6 py-5 text-xl font-display font-semibold leading-snug text-ink"
+      >
+        Building a website made easy.
+      </blockquote>
+      <p data-reveal>
+        Most of the people I work with aren't tech experts — and they shouldn't
+        have to be. I handle the technical side for you, explain things clearly, 
+        and keep it simple, so you can spend your time on the work
+        you're good at while I take care of your website. And when you need a
+        change, every request is answered within 24 hours.
+      </p>
+      <p data-reveal>
+        When I'm not building websites, you'll most likely find me fishing,
+        watching sports, or on the golf course. Thank you so much for
+        considering me as your web developer, I look forward to speaking with
+        you!
+      </p>
     </div>
   </section>
 
-  <section class="mx-auto max-w-3xl px-6 py-16 sm:py-20">
-    <p class="label text-brand">How projects run</p>
-    <ol class="mt-10 space-y-6">
-      {
-        process.map((p, i) => (
-          <li
-            data-reveal
-            style={`transition-delay:${i * 90}ms`}
-            class="grid grid-cols-[auto_1fr] gap-5 rounded-[var(--radius-card)] border border-line bg-surface p-6 shadow-sm transition-shadow duration-300 hover:shadow-md"
-          >
-            <span class="grid h-10 w-10 place-items-center rounded-full bg-brand-tint font-display text-lg font-semibold text-brand">
-              {p.step}
-            </span>
-            <div>
-              <h3 class="text-xl">{p.name}</h3>
-              <p class="mt-1.5 text-muted">{p.text}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ol>
+  <!-- How projects run -->
+  <section class="overflow-x-clip">
+    <div class="mx-auto max-w-3xl px-6 py-16 sm:py-24">
+      <p class="label text-brand" data-reveal>How projects run</p>
+      <h2 data-reveal class="mt-3 text-3xl sm:text-4xl">3 steps is all it takes</h2>
+      <div class="mt-10">
+        <StepTimeline steps={process} />
+      </div>
+    </div>
   </section>
 
   <CtaBand />

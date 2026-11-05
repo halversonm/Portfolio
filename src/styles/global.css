@@ -6,10 +6,10 @@
 --------------------------------------------------------------- */
 @theme {
   /* Industrial sans, one family: condensed for display, regular for text */
-  --font-sans: "Barlow", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif;
-  --font-display: "Barlow Semi Condensed", "Barlow", ui-sans-serif, system-ui,
-    sans-serif;
+  --font-sans: var(--font-barlow), "Barlow", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: var(--font-barlow-condensed), "Barlow Semi Condensed", "Barlow",
+    ui-sans-serif, system-ui, sans-serif;
 
   /* Core palette: near-black, warm off-white, confident forest green */
   --color-ink: #16181a;
@@ -87,4 +87,251 @@
     transform: none;
     transition: none;
   }
+}
+
+/* ===============================================================
+   Modern effects layer — driven by src/scripts/effects.ts.
+   Everything below is progressive enhancement: with JS off or
+   prefers-reduced-motion on, the page is fully readable/static.
+=============================================================== */
+
+/* ---- Reveal variants (pair with data-reveal="left|right|scale") ---- */
+[data-reveal="left"] { transform: translateX(-28px); }
+[data-reveal="right"] { transform: translateX(28px); }
+[data-reveal="scale"] { transform: scale(0.94) translateY(12px); }
+[data-reveal].is-visible { transform: none; }
+
+/* ---- Scroll progress bar ---- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-brand), var(--color-brand-bright));
+  transform-origin: 0 50%;
+  transform: scaleX(var(--sp, 0));
+  pointer-events: none;
+}
+
+/* ---- Aurora / grid / noise backdrops (dark sections) ---- */
+.aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aurora > i {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.55;
+  will-change: transform;
+}
+.aurora > i:nth-child(1) {
+  width: 34rem; height: 34rem; top: -12rem; right: -6rem;
+  background: radial-gradient(circle, rgba(92, 174, 122, 0.55), transparent 65%);
+  animation: aurora-a 18s ease-in-out infinite alternate;
+}
+.aurora > i:nth-child(2) {
+  width: 28rem; height: 28rem; bottom: -10rem; left: -8rem;
+  background: radial-gradient(circle, rgba(45, 90, 61, 0.7), transparent 65%);
+  animation: aurora-b 22s ease-in-out infinite alternate;
+}
+.aurora > i:nth-child(3) {
+  width: 20rem; height: 20rem; top: 30%; left: 38%;
+  background: radial-gradient(circle, rgba(201, 161, 74, 0.22), transparent 65%);
+  animation: aurora-c 26s ease-in-out infinite alternate;
+}
+@keyframes aurora-a { to { transform: translate3d(-6rem, 5rem, 0) scale(1.12); } }
+@keyframes aurora-b { to { transform: translate3d(7rem, -4rem, 0) scale(1.18); } }
+@keyframes aurora-c { to { transform: translate3d(-5rem, -3rem, 0) scale(0.9); } }
+
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000 30%, transparent 78%);
+}
+
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Gradient text accent ---- */
+.text-shine {
+  background: linear-gradient(100deg, #ededea 0%, #8fd4a8 45%, #ededea 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-shine 7s linear infinite;
+}
+@keyframes text-shine { to { background-position: -200% center; } }
+
+/* ---- Cursor spotlight on cards (set --mx/--my from effects.ts) ---- */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(45, 90, 61, 0.14),
+    transparent 65%
+  );
+  pointer-events: none;
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* ---- Hover full-page scroll preview (BrowserFrame `preview` prop) ---- */
+.preview-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: var(--color-surface);
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.preview-layer img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+.is-previewing .preview-layer { opacity: 1; }
+.is-previewing .preview-layer img {
+  transform: translate3d(0, calc(var(--dist, 0px) * -1), 0);
+  transition: transform var(--dur, 6s) linear 0.3s;
+}
+.preview-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 0.75rem;
+  translate: -50% 0;
+  display: none;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 9999px;
+  background: rgba(22, 24, 26, 0.82);
+  color: #fff;
+  padding: 0.3rem 0.8rem;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .preview-hint { display: inline-flex; }
+  [data-preview-host]:hover .preview-hint,
+  [data-preview-host]:focus-within .preview-hint { opacity: 0; transform: translateY(6px); }
+}
+
+/* ---- Process timeline ---- */
+.timeline-track {
+  position: absolute;
+  left: calc(1.125rem - 1px);
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: var(--color-line);
+}
+.timeline-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(var(--color-brand), var(--color-brand-bright));
+  transform-origin: 50% 0;
+  transform: scaleY(var(--p, 0));
+}
+.timeline-step .timeline-dot {
+  background: var(--color-surface);
+  color: var(--color-muted);
+  border-color: var(--color-line);
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.timeline-step.is-lit .timeline-dot {
+  background: var(--color-brand);
+  color: #fff;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 6px rgba(45, 90, 61, 0.14);
+}
+
+/* ---- No-JS / reduced-motion safety for the effects above ---- */
+@media (prefers-reduced-motion: reduce) {
+  .aurora > i, .text-shine { animation: none; }
+  .preview-layer { display: none; }
+  .scroll-progress { display: none; }
+  .timeline-fill { transform: scaleY(1); }
+  .timeline-step .timeline-dot { background: var(--color-brand); color: #fff; border-color: var(--color-brand); }
+}
+
+/* ---------------------------------------------------------------
+   Scrollbar — dark track to match the header/footer, green thumb.
+   WebKit/Blink get the custom pill; Firefox gets the standard props.
+--------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--color-brand), var(--color-brand-bright));
+  border: 3px solid var(--color-ink);
+  border-radius: 9999px;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-bright);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-corner {
+  background: var(--color-ink);
+}
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-brand) var(--color-ink);
+  }
+}
+
+/* ---- Shared page-hero / footer polish ---- */
+[data-parallax] > .aurora {
+  transform: translate3d(0, calc(var(--sy, 0) * 0.18px), 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-parallax] > .aurora { transform: none; }
+}
+.footer-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 14rem at 85% 0%, rgba(92, 174, 122, 0.14), transparent 70%),
+    radial-gradient(34rem 12rem at 0% 100%, rgba(45, 90, 61, 0.28), transparent 70%);
 }

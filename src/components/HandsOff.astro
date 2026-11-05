@@ -1,0 +1,190 @@
+---
+/**
+ * The "let me handle it all" promise. Everything stated here must stay true of
+ * the packages in src/data/services.ts (hosting + monthly updates are Full Service).
+ */
+const youFocus = [
+  {
+    title: "Your customers",
+    text: "Serving the people who rely on you.",
+    icon: "M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8",
+  },
+  {
+    title: "The work you love",
+    text: "The craft you've spent years getting great at.",
+    icon: "M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z",
+  },
+  {
+    title: "Growing your business",
+    text: "Your time goes where it actually pays off.",
+    icon: "M22 7l-8.5 8.5-5-5L2 17M16 7h6v6",
+  },
+];
+
+const iHandle = [
+  {
+    title: "Design & build",
+    text: "A custom site built around your business, start to finish, all with your approval.",
+  },
+  {
+    title: "Domain help & hosting",
+    text: "I guide you through getting your domain (your web address). I'll connect it and get your site live. With the Full Service package, I handle hosting too.",
+  },
+  {
+    title: "Updates & changes",
+    text: "I'll keep your website up to date and fix any issues promptly. Need something changed? Reach out to me and I'll answer within 24 hours.",
+  },
+  {
+    title: "Support as needed",
+    text: "No jargon, no confusing dashboards. Ask me anything, any time.",
+  },
+];
+
+const reassurances = [
+  { title: "No tech skills needed", text: "No technical background or skills required whatsoever." },
+  { title: "Just one account to set up", text: "That's your domain account, and I'll guide you through it. With Full Service, hosting and the rest are on me." },
+  { title: "One person, start to finish", text: "You always know who to call — no handoffs, no ticket numbers." },
+  { title: "You own it all", text: "Your website, your domain, everything on it. It's all yours." },
+];
+---
+
+<section class="relative overflow-x-clip bg-paper">
+  <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+    <div class="max-w-3xl">
+      <p class="label text-brand" data-reveal>Hands-off for you</p>
+      <h2 data-reveal class="mt-3 text-3xl sm:text-5xl">
+        Building and maintaining a website made easy.
+      </h2>
+      <p data-reveal class="mt-5 max-w-2xl text-lg text-muted">
+        You didn’t start your business to figure out website design, hosting, or updates. 
+        Let me handle building and maintaining your website, so you can focus on the stuff you're an expert at.
+      </p>
+    </div>
+
+    <div class="mt-14 grid items-stretch gap-4 lg:grid-cols-[1fr_auto_1.15fr] lg:gap-6">
+      <!-- You -->
+      <div
+        data-reveal="left"
+        class="spotlight rounded-[var(--radius-card)] border border-line bg-surface p-7 shadow-sm sm:p-8"
+      >
+        <p class="label text-brand">You focus on</p>
+        <ul class="mt-6 space-y-6">
+          {
+            youFocus.map((item) => (
+              <li class="flex gap-4">
+                <span
+                  class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-brand-tint text-brand"
+                  aria-hidden="true"
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d={item.icon} />
+                  </svg>
+                </span>
+                <div>
+                  <h3 class="font-display text-xl font-semibold">{item.title}</h3>
+                  <p class="mt-0.5 text-sm text-muted">{item.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Handoff connector -->
+      <div class="handoff flex items-center justify-center" aria-hidden="true">
+        <svg class="hidden lg:block" width="96" height="64" viewBox="0 0 96 64" fill="none">
+          <path class="handoff-line" d="M4 32 H80" stroke="var(--color-brand)" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9" />
+          <path d="M72 20 L88 32 L72 44" stroke="var(--color-brand)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <svg class="lg:hidden" width="64" height="56" viewBox="0 0 64 56" fill="none">
+          <path class="handoff-line" d="M32 4 V38" stroke="var(--color-brand)" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 9" />
+          <path d="M20 30 L32 46 L44 30" stroke="var(--color-brand)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <!-- Me -->
+      <div
+        data-reveal="right"
+        class="relative overflow-hidden rounded-[var(--radius-card)] bg-ink p-7 text-onink shadow-xl sm:p-8"
+      >
+        <div class="handsoff-glow" aria-hidden="true"></div>
+        <p class="label relative text-brand-bright">I handle</p>
+        <ul class="relative mt-6 space-y-5">
+          {
+            iHandle.map((item) => (
+              <li class="flex gap-4">
+                <span
+                  class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-brand text-white"
+                  aria-hidden="true"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <div>
+                  <h3 class="font-display text-xl font-semibold text-onink">{item.title}</h3>
+                  <p class="mt-0.5 text-sm text-onink-muted">{item.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        reassurances.map((r, i) => (
+          <li
+            data-reveal
+            style={`transition-delay:${i * 90}ms`}
+            class="rounded-[var(--radius-chip)] border border-line bg-surface/70 px-5 py-4"
+          >
+            <p class="font-display text-lg font-semibold">{r.title}</p>
+            <p class="mt-0.5 text-sm text-muted">{r.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p data-reveal class="mt-6 text-sm text-muted">
+      Hosting and monthly updates are part of the Full Service package.{" "}
+      <a href="/services" class="font-semibold text-brand hover:text-brand-dark">See how it works →</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .handsoff-glow {
+    position: absolute;
+    top: -6rem;
+    right: -6rem;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(92, 174, 122, 0.28), transparent 65%);
+    pointer-events: none;
+  }
+  .handoff-line {
+    animation: handoff-flow 1.2s linear infinite;
+  }
+  @keyframes handoff-flow {
+    to {
+      stroke-dashoffset: -11;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .handoff-line {
+      animation: none;
+    }
+  }
+</style>

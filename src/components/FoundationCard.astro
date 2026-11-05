@@ -1,0 +1,308 @@
+---
+import type { FoundationItem } from "../data/foundation";
+interface Props {
+  item: FoundationItem;
+  wide?: boolean;
+  delay?: number;
+}
+const { item, wide = false, delay = 0 } = Astro.props;
+const stars = [0, 1, 2, 3, 4];
+const ticks = [0, 1, 2, 3, 4, 5, 6].map((i) => {
+  const a = Math.PI + (i * Math.PI) / 6;
+  return {
+    x1: 160 + Math.cos(a) * 68,
+    y1: 140 + Math.sin(a) * 68,
+    x2: 160 + Math.cos(a) * 60,
+    y2: 140 + Math.sin(a) * 60,
+  };
+});
+---
+
+<div
+  data-reveal="scale"
+  style={`transition-delay:${delay}ms`}
+  class:list={[
+    "fc spotlight group flex flex-col overflow-hidden rounded-[var(--radius-card)] border border-line bg-paper transition-[translate,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-brand/30 hover:shadow-lg",
+    wide && "sm:col-span-2",
+  ]}
+>
+  <div class="relative grid h-52 place-items-center border-b border-line bg-gradient-to-br from-brand-tint via-paper to-paper">
+    <div class="fc-dots absolute inset-0" aria-hidden="true"></div>
+
+    {
+      item.graphic === "convert" && (
+        <svg viewBox="0 0 320 170" class="relative h-full w-auto max-w-full py-3" aria-hidden="true">
+          <rect x="20" y="10" width="280" height="150" rx="12" class="fill-surface stroke-line" stroke-width="1.5" />
+          <line x1="20" y1="34" x2="300" y2="34" class="stroke-line" stroke-width="1.5" />
+          <circle cx="36" cy="22" r="3.5" fill="#ff5f57" />
+          <circle cx="48" cy="22" r="3.5" fill="#febc2e" />
+          <circle cx="60" cy="22" r="3.5" fill="#28c840" />
+          <rect x="40" y="50" width="140" height="11" rx="5.5" class="fill-ink" opacity="0.85" />
+          <rect x="40" y="68" width="104" height="11" rx="5.5" class="fill-ink" opacity="0.85" />
+          <rect x="40" y="88" width="130" height="5" rx="2.5" class="fill-muted" opacity="0.35" />
+          <rect x="40" y="108" width="118" height="30" rx="15" class="fill-brand" />
+          <rect class="fc-ring" x="40" y="108" width="118" height="30" rx="15" fill="none" stroke="#5cae7a" stroke-width="2" />
+          <text x="99" y="127" text-anchor="middle" class="fill-white font-display" font-size="12" font-weight="600">Get a quote</text>
+          <rect x="198" y="48" width="84" height="66" rx="10" class="fill-brand-tint" />
+          <circle cx="222" cy="68" r="7" fill="#c9a14a" opacity="0.9" />
+          <path d="M198 114 L226 84 L246 102 L260 90 L282 114 Z" class="fill-brand" opacity="0.75" />
+          <g class="fc-chip">
+            <rect x="196" y="124" width="92" height="24" rx="12" class="fill-ink" />
+            <circle cx="210" cy="136" r="3.5" fill="#5cae7a" />
+            <text x="219" y="140" class="fill-white font-display" font-size="10.5" font-weight="600">New inquiry</text>
+          </g>
+          <g class="fc-cursor">
+            <path d="M0 0 L0 17 L4.6 12.8 L7.6 19.5 L10.4 18.3 L7.4 11.7 L13.5 11.5 Z" class="fill-ink" stroke="#fff" stroke-width="1.4" stroke-linejoin="round" />
+          </g>
+        </svg>
+      )
+    }
+
+    {
+      item.graphic === "speed" && (
+        <svg viewBox="0 0 320 170" class="relative h-full w-auto max-w-full py-3" aria-hidden="true">
+          <defs>
+            <linearGradient id="fc-gauge" x1="0" x2="1">
+              <stop offset="0" stop-color="#2d5a3d" />
+              <stop offset="1" stop-color="#5cae7a" />
+            </linearGradient>
+          </defs>
+          <path d="M70 140 A90 90 0 0 1 250 140" fill="none" class="stroke-line" stroke-width="16" stroke-linecap="round" />
+          <path class="fc-arc" d="M70 140 A90 90 0 0 1 250 140" fill="none" stroke="url(#fc-gauge)" stroke-width="16" stroke-linecap="round" pathLength="100" />
+          {ticks.map((t) => (
+            <line x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} class="stroke-muted" stroke-width="2" stroke-linecap="round" opacity="0.45" />
+          ))}
+          <g class="fc-bolt">
+            <circle cx="160" cy="118" r="26" class="fill-surface stroke-line" stroke-width="1.5" />
+            <path d="M166 100 L148 124 H160 L154 140 L174 114 H162 Z" class="fill-brand" />
+          </g>
+          <g class="stroke-brand" stroke-width="3" stroke-linecap="round">
+            <line class="fc-line" x1="24" y1="70" x2="60" y2="70" />
+            <line class="fc-line" x1="14" y1="84" x2="50" y2="84" style="animation-delay:.25s" />
+            <line class="fc-line" x1="30" y1="98" x2="58" y2="98" style="animation-delay:.5s" />
+          </g>
+        </svg>
+      )
+    }
+
+    {
+      item.graphic === "mobile" && (
+        <svg viewBox="0 0 320 170" class="relative h-full w-auto max-w-full py-3" aria-hidden="true">
+          <rect x="22" y="34" width="190" height="122" rx="10" class="fill-surface stroke-line" stroke-width="1.5" />
+          <line x1="22" y1="52" x2="212" y2="52" class="stroke-line" stroke-width="1.5" />
+          <circle cx="34" cy="43" r="2.5" fill="#ff5f57" />
+          <circle cx="43" cy="43" r="2.5" fill="#febc2e" />
+          <circle cx="52" cy="43" r="2.5" fill="#28c840" />
+          <rect x="38" y="66" width="88" height="9" rx="4.5" class="fill-ink" opacity="0.85" />
+          <rect x="38" y="82" width="70" height="9" rx="4.5" class="fill-ink" opacity="0.85" />
+          <rect x="38" y="100" width="74" height="22" rx="11" class="fill-brand" />
+          <rect x="138" y="64" width="60" height="58" rx="8" class="fill-brand-tint" />
+          <rect x="38" y="132" width="160" height="6" rx="3" class="fill-muted" opacity="0.3" />
+          <g class="fc-phone">
+            <rect x="196" y="12" width="92" height="150" rx="18" class="fill-surface stroke-ink" stroke-width="3" />
+            <rect x="228" y="19" width="28" height="6" rx="3" class="fill-ink" opacity="0.8" />
+            <rect x="206" y="36" width="72" height="42" rx="8" class="fill-brand-tint" />
+            <path d="M206 78 L228 56 L244 70 L256 60 L278 78 Z" class="fill-brand" opacity="0.7" />
+            <rect x="206" y="86" width="52" height="7" rx="3.5" class="fill-ink" opacity="0.85" />
+            <rect x="206" y="99" width="72" height="5" rx="2.5" class="fill-muted" opacity="0.35" />
+            <rect x="206" y="109" width="60" height="5" rx="2.5" class="fill-muted" opacity="0.35" />
+            <rect x="206" y="124" width="72" height="20" rx="10" class="fill-brand" />
+            <rect x="236" y="153" width="24" height="3" rx="1.5" class="fill-ink" opacity="0.5" />
+          </g>
+        </svg>
+      )
+    }
+
+    {
+      item.graphic === "seo" && (
+        <svg viewBox="0 0 320 170" class="relative h-full w-auto max-w-full py-3" aria-hidden="true">
+          <rect x="30" y="12" width="260" height="34" rx="17" class="fill-surface stroke-line" stroke-width="1.5" />
+          <circle cx="52" cy="29" r="7" fill="none" class="stroke-muted" stroke-width="2" />
+          <line x1="57" y1="34" x2="62" y2="39" class="stroke-muted" stroke-width="2" stroke-linecap="round" />
+          <text x="74" y="33" class="fill-muted font-sans" font-size="12">services near me</text>
+
+          <g class="fc-row fc-row-a">
+            <rect x="30" y="60" width="260" height="30" rx="9" class="fill-surface stroke-line" stroke-width="1.5" />
+            <circle cx="48" cy="75" r="6" class="fill-muted" opacity="0.3" />
+            <rect x="62" y="68" width="110" height="6" rx="3" class="fill-ink" opacity="0.3" />
+            <rect x="62" y="79" width="150" height="4" rx="2" class="fill-muted" opacity="0.25" />
+          </g>
+          <g class="fc-row fc-row-b">
+            <rect x="30" y="60" width="260" height="30" rx="9" class="fill-surface stroke-line" stroke-width="1.5" />
+            <circle cx="48" cy="75" r="6" class="fill-muted" opacity="0.3" />
+            <rect x="62" y="68" width="90" height="6" rx="3" class="fill-ink" opacity="0.3" />
+            <rect x="62" y="79" width="130" height="4" rx="2" class="fill-muted" opacity="0.25" />
+          </g>
+          <g class="fc-row fc-row-you">
+            <rect x="30" y="60" width="260" height="30" rx="9" class="fill-brand-tint stroke-brand" stroke-width="2" />
+            <circle cx="48" cy="75" r="6" class="fill-brand" />
+            <rect x="62" y="68" width="120" height="6" rx="3" class="fill-ink" opacity="0.85" />
+            <rect x="62" y="79" width="160" height="4" rx="2" class="fill-brand" opacity="0.45" />
+            <circle cx="268" cy="75" r="11" class="fill-brand" />
+            <text x="268" y="79.5" text-anchor="middle" class="fill-white font-display" font-size="12" font-weight="700">#1</text>
+          </g>
+        </svg>
+      )
+    }
+
+    {
+      item.graphic === "trust" && (
+        <svg viewBox="0 0 320 170" class="relative h-full w-auto max-w-full py-3" aria-hidden="true">
+          {stars.map((i) => (
+            <g transform={`translate(${62 + i * 34} 32)`}>
+              <polygon
+                class="fc-star"
+                style={`animation-delay:${i * 0.12}s`}
+                points="0,-13 3.8,-4.4 13,-4 5.8,2.4 8,11.5 0,6.8 -8,11.5 -5.8,2.4 -13,-4 -3.8,-4.4"
+                fill="#c9a14a"
+              />
+            </g>
+          ))}
+          <g class="fc-review">
+            <rect x="32" y="62" width="170" height="86" rx="12" class="fill-surface stroke-line" stroke-width="1.5" />
+            <circle cx="56" cy="86" r="11" class="fill-brand-tint" />
+            <circle cx="56" cy="83" r="4" class="fill-brand" />
+            <path d="M47 95 Q56 86 65 95" class="fill-brand" />
+            <rect x="76" y="79" width="70" height="6" rx="3" class="fill-ink" opacity="0.8" />
+            <rect x="76" y="90" width="48" height="4" rx="2" class="fill-muted" opacity="0.35" />
+            <rect x="46" y="110" width="140" height="5" rx="2.5" class="fill-muted" opacity="0.3" />
+            <rect x="46" y="122" width="112" height="5" rx="2.5" class="fill-muted" opacity="0.3" />
+          </g>
+          <g class="fc-shield">
+            <path d="M252 62 L292 76 V106 C292 128 276 142 252 152 C228 142 212 128 212 106 V76 Z" class="fill-brand" />
+            <path d="M234 106 L247 119 L271 92" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+          </g>
+        </svg>
+      )
+    }
+  </div>
+
+  <div class="flex-1 p-6">
+    <h3 class="font-display text-xl font-semibold">{item.title}</h3>
+    <p class="mt-2 text-sm text-muted">{item.description}</p>
+  </div>
+</div>
+
+<style>
+  .fc-dots {
+    background-image: radial-gradient(rgba(45, 90, 61, 0.16) 1px, transparent 1px);
+    background-size: 18px 18px;
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+
+  /* ---------- Always-on idle motion ---------- */
+  .fc-ring {
+    animation: fc-ring 2.2s ease-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  @keyframes fc-ring {
+    0% { opacity: 0.9; transform: scale(1); }
+    80%, 100% { opacity: 0; transform: scale(1.18, 1.5); }
+  }
+  .fc-phone {
+    animation: fc-float 5s ease-in-out infinite;
+  }
+  @keyframes fc-float {
+    50% { transform: translateY(-5px); }
+  }
+  .fc-line {
+    opacity: 0.5;
+    animation: fc-dash 1.4s ease-in-out infinite;
+  }
+  @keyframes fc-dash {
+    0%, 100% { opacity: 0.2; transform: translateX(0); }
+    50% { opacity: 0.8; transform: translateX(-6px); }
+  }
+  .fc-bolt {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: fc-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes fc-pulse {
+    50% { transform: scale(1.07); }
+  }
+
+  /* ---------- Play-once motion when the card scrolls into view ---------- */
+  .fc-arc {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s;
+  }
+  .fc:global(.is-visible) .fc-arc {
+    stroke-dashoffset: 8;
+  }
+
+  .fc-cursor {
+    transform: translate(210px, 150px);
+    transition: transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s;
+  }
+  .fc:global(.is-visible) .fc-cursor {
+    transform: translate(124px, 122px);
+  }
+  .fc-chip {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease 1.6s, transform 0.4s ease 1.6s;
+  }
+  .fc:global(.is-visible) .fc-chip {
+    opacity: 1;
+    transform: none;
+  }
+
+  .fc-row {
+    transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 0.5s;
+  }
+  .fc-row-a { transform: translateY(0); }
+  .fc-row-b { transform: translateY(30px); }
+  .fc-row-you { transform: translateY(60px); }
+  .fc:global(.is-visible) .fc-row-a { transform: translateY(30px); }
+  .fc:global(.is-visible) .fc-row-b { transform: translateY(60px); }
+  .fc:global(.is-visible) .fc-row-you { transform: translateY(0); }
+
+  .fc-star {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  .fc:global(.is-visible) .fc-star {
+    animation: fc-star-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  @keyframes fc-star-in {
+    to { opacity: 1; transform: scale(1); }
+  }
+  .fc-review,
+  .fc-shield {
+    transform-box: fill-box;
+    transform-origin: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease 0.7s, transform 0.5s ease 0.7s;
+  }
+  .fc-shield {
+    transform: scale(0.6);
+    transition-delay: 1s;
+  }
+  .fc:global(.is-visible) .fc-review,
+  .fc:global(.is-visible) .fc-shield {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fc-ring,
+    .fc-phone,
+    .fc-line,
+    .fc-bolt { animation: none; }
+    .fc-ring { opacity: 0; }
+    .fc-arc { stroke-dashoffset: 8; transition: none; }
+    .fc-cursor { transform: translate(124px, 122px); transition: none; }
+    .fc-chip, .fc-review, .fc-shield, .fc-star { opacity: 1; transform: none; transition: none; animation: none; }
+    .fc-row { transition: none; }
+    .fc-row-a { transform: translateY(30px); }
+    .fc-row-b { transform: translateY(60px); }
+    .fc-row-you { transform: translateY(0); }
+  }
+</style>

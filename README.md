@@ -1,6 +1,6 @@
 # Halverson Web
 
-Business site for Halverson Web — fast, custom, mobile-friendly websites for blue-collar businesses.
+Business site for Halverson Web — fast, custom, mobile-friendly websites for small businesses.
 
 ## Tech Stack
 

@@ -7,7 +7,7 @@ export const site = {
   tagline: "Websites that work as hard as you do",
   // Shown in the browser tab and Google search results (after "Halverson Web —"),
   // separate from the tagline above so the homepage headline can stay punchier.
-  seoTitle: "Custom web development for blue-collar businesses",
+  seoTitle: "Custom web development for small businesses",
   description:
     "Custom websites that load fast, look great on every device, and turn visitors into customers.",
   email: "max@halversonweb.com",

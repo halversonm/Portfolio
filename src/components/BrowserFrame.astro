@@ -3,6 +3,10 @@
  * Wraps a client-site screenshot in browser chrome.
  * Pass `src` once you have a real screenshot in src/assets or public/.
  * Until then it renders a labelled placeholder.
+ *
+ * `preview` (optional) is a long full-page image. When set, a hidden layer is
+ * rendered that src/scripts/effects.ts lazy-loads and scrolls through on hover
+ * of the nearest `[data-preview-host]` ancestor.
  */
 interface Props {
   src?: string;
@@ -10,8 +14,27 @@ interface Props {
   domain?: string;
   accent?: string;
   class?: string;
+  preview?: string;
+  loading?: "lazy" | "eager";
+  /** `sizes` hint for the responsive screenshot (defaults to the project-card grid). */
+  sizes?: string;
 }
-const { src, alt = "", domain = "example.com", accent = "#2d5a3d", class: cls = "" } = Astro.props;
+const {
+  src,
+  alt = "",
+  domain = "example.com",
+  accent = "#2d5a3d",
+  class: cls = "",
+  preview,
+  loading = "lazy",
+  sizes = "(min-width: 1024px) 370px, (min-width: 768px) 45vw, 100vw",
+} = Astro.props;
+
+// Screenshots in /work come in two sizes (name.webp = 1440w, name-800.webp = 800w).
+const srcset =
+  src && /^\/work\/[^/]+\.webp$/.test(src) && !src.endsWith("-full.webp")
+    ? `${src.replace(/\.webp$/, "-800.webp")} 800w, ${src} 1440w`
+    : undefined;
 ---
 
 <figure class={`overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface shadow-[0_20px_50px_-20px_rgba(0,0,0,0.35)] transition-shadow duration-300 ${cls}`}>
@@ -26,16 +49,28 @@ const { src, alt = "", domain = "example.com", accent = "#2d5a3d", class: cls = 
     </span>
   </div>
 
-  {
-    src ? (
-      <img src={src} alt={alt} class="block w-full" loading="lazy" />
-    ) : (
-      <div
-        class="grid aspect-[16/10] place-items-center"
-        style={`background: linear-gradient(140deg, ${accent}1f, ${accent}08);`}
-      >
-        <span class="label text-muted">Screenshot</span>
-      </div>
-    )
-  }
+  <div class="relative">
+    {
+      src ? (
+        <img src={src} srcset={srcset} sizes={srcset ? sizes : undefined} width="1440" height="900" alt={alt} class="block h-auto w-full" loading={loading} decoding="async" />
+      ) : (
+        <div
+          class="grid aspect-[16/10] place-items-center"
+          style={`background: linear-gradient(140deg, ${accent}1f, ${accent}08);`}
+        >
+          <span class="label text-muted">Screenshot</span>
+        </div>
+      )
+    }
+    {
+      src && preview && (
+        <>
+          <div class="preview-layer" aria-hidden="true">
+            <img data-src={preview} alt="" decoding="async" />
+          </div>
+          <span class="preview-hint" aria-hidden="true">Hover to explore</span>
+        </>
+      )
+    }
+  </div>
 </figure>

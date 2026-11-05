@@ -12,6 +12,8 @@ export type Project = {
   services: string[];
   /** Screenshot path (put files in public/work/). Leave empty for a placeholder frame. */
   screenshot?: string;
+  /** Long full-page image of the site. When set, cards scroll through it on hover. */
+  fullPage?: string;
   accent: string;
   results: { label: string; value: string }[];
   /** If set, the case-study page links out to this live site instead of showing stats/case-study copy. */
@@ -36,7 +38,8 @@ export const projects: Project[] = [
       "Luxury website design to match their business",
     ],
     services: ["Design", "Development"],
-    screenshot: "/work/jl-onyx.png",
+    screenshot: "/work/jl-onyx.webp",
+    fullPage: "/work/jl-onyx-full.webp",
     accent: "#111111",
     results: [],
     liveUrl: "https://jlonyx.com/",
@@ -56,7 +59,8 @@ export const projects: Project[] = [
       "Clear call to actions",
     ],
     services: ["Design", "Astro build", "Copywriting"],
-    screenshot: "/work/elmberg-properties.png",
+    screenshot: "/work/elmberg-properties.webp",
+    fullPage: "/work/elmberg-properties-full.webp",
     accent: "#c9a14a",
     results: [],
     liveUrl: "https://elmbergproperties.com/",
@@ -76,7 +80,8 @@ export const projects: Project[] = [
       "Clear service-area list across East Texas",
     ],
     services: ["Design", "Astro build", "Copywriting"],
-    screenshot: "/work/red-oak-land-clearing.png",
+    screenshot: "/work/red-oak-land-clearing.webp",
+    fullPage: "/work/red-oak-land-clearing-full.webp",
     accent: "#8a2e22",
     results: [
       { label: "Estimate requests / mo", value: "5 → 14" },
@@ -100,7 +105,8 @@ export const projects: Project[] = [
       "Clear service-area list so people know if they're covered",
     ],
     services: ["Design", "Astro build", "Copywriting"],
-    screenshot: "/work/ironwood-phc.png",
+    screenshot: "/work/ironwood-phc.webp",
+    fullPage: "/work/ironwood-phc-full.webp",
     accent: "#c2531f",
     results: [
       { label: "Missed-call rate", value: "−40%" },
@@ -124,7 +130,8 @@ export const projects: Project[] = [
       "Clearly display company service area",
     ],
     services: ["Design", "Astro build", "Copywriting"],
-    screenshot: "/work/cedar-stone-landscape.png",
+    screenshot: "/work/cedar-stone-landscape.webp",
+    fullPage: "/work/cedar-stone-landscape-full.webp",
     accent: "#3f5e2f",
     results: [
       { label: "Site walk requests / mo", value: "4 → 15" },

@@ -1,31 +1,29 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import ComingSoonCard from "../../components/ComingSoonCard.astro";
 import CtaBand from "../../components/CtaBand.astro";
 import { projects, comingSoonSlots } from "../../data/projects";
 ---
 
-<Layout title="Work" description="Recent websites built for local and blue-collar businesses.">
-  <section class="bg-ink text-onink">
-    <div class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-      <p class="label text-brand-bright">Work</p>
-      <h1 class="mt-5 text-5xl sm:text-6xl text-onink">Websites I've built</h1>
-      <p class="mt-5 max-w-xl text-lg text-onink-muted">
-        Real client work along with sample builds to show what's possible.
-      </p>
-    </div>
-  </section>
+<Layout title="Work" description="Recent websites built for small businesses.">
+  <PageHero label="Work" title="Websites I've built">
+    Real client work along with sample builds to show what's possible.
+    <span class="hidden [@media(hover:hover)_and_(pointer:fine)]:inline">
+      Hover over any site to scroll through the whole page.
+    </span>
+  </PageHero>
 
-  <section class="mx-auto max-w-6xl px-6 py-20 sm:py-24">
-    <div class="grid gap-x-8 gap-y-14 md:grid-cols-2">
+  <section class="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+    <div class="grid gap-x-8 gap-y-16 md:grid-cols-2">
       {projects.map((project, i) => (
-        <div data-reveal style={`transition-delay:${(i % 2) * 100}ms`}>
-          <ProjectCard project={project} compact />
+        <div data-reveal="scale" style={`transition-delay:${(i % 2) * 100}ms`}>
+          <ProjectCard project={project} compact scrollPreview headingLevel="h2" />
         </div>
       ))}
       {Array.from({ length: comingSoonSlots }).map((_, i) => (
-        <div data-reveal style={`transition-delay:${((projects.length + i) % 2) * 100}ms`}>
+        <div data-reveal="scale" style={`transition-delay:${((projects.length + i) % 2) * 100}ms`}>
           <ComingSoonCard />
         </div>
       ))}

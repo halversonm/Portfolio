@@ -1,0 +1,66 @@
+---
+/**
+ * Dark page header used by every inner page — same glow / grid / grain look as
+ * the homepage hero. Slots:
+ *   before  → content above the label (e.g. a back link, an icon)
+ *   default → intro text under the title
+ *   after   → content under the intro (e.g. buttons, a list)
+ */
+interface Props {
+  label: string;
+  title: string;
+  align?: "left" | "center";
+  /** Tailwind max-width class for the content column. */
+  width?: string;
+  compact?: boolean;
+}
+const { label, title, align = "left", width = "max-w-6xl", compact = false } = Astro.props;
+const center = align === "center";
+---
+
+<section class="relative overflow-hidden bg-ink text-onink noise" data-parallax>
+  <div class="aurora" aria-hidden="true">
+    <i></i><i></i><i></i>
+  </div>
+  <div class="grid-lines" aria-hidden="true"></div>
+
+  <div
+    class:list={[
+      "relative mx-auto px-6",
+      width,
+      compact ? "py-14 sm:py-16" : "py-20 sm:py-28",
+      center && "text-center",
+    ]}
+  >
+    {Astro.slots.has("before") && <div data-reveal><slot name="before" /></div>}
+    <p class="label text-brand-bright" data-reveal>{label}</p>
+    <h1
+      data-reveal
+      style="transition-delay:80ms"
+      class:list={[
+        "mt-5 max-w-4xl text-5xl text-onink sm:text-6xl lg:text-7xl",
+        center && "mx-auto",
+      ]}
+    >
+      {title}
+    </h1>
+    {
+      Astro.slots.has("default") && (
+        <div
+          data-reveal
+          style="transition-delay:160ms"
+          class:list={["mt-6 max-w-2xl text-lg text-onink-muted sm:text-xl", center && "mx-auto"]}
+        >
+          <slot />
+        </div>
+      )
+    }
+    {
+      Astro.slots.has("after") && (
+        <div data-reveal style="transition-delay:240ms" class="mt-8">
+          <slot name="after" />
+        </div>
+      )
+    }
+  </div>
+</section>
