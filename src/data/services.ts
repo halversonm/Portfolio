@@ -29,11 +29,12 @@ export const services: Service[] = [
   {
     name: "Launch",
     blurb:
-      "Your site is published and made live — ready to bring in calls and new customers.",
+      "Your site is published and made live — ready to bring in calls and new customers. You'll also get a Launch & SEO report showing how your site is set up to be found on Google.",
     includes: [
       "Site published and made live",
       "Domain and hosting connected",
       "Final quality check",
+      "Launch & SEO report (included with every package)",
     ],
   },
 ];
@@ -43,13 +44,13 @@ export const packages = [
     name: "Website Only",
     price: "$1,500",
     fit: "You're comfortable handling your own hosting and updates — I just build the site. ",
-    points: ["Fully custom website, built for your business"],
+    points: ["Fully custom website, built for your business", "Launch & SEO report"],
   },
   {
     name: "Full Service (recommended)",
     price: "$1000 creation fee + $150 a month",
     fit: "You don't want to worry about hosting or updates, let me handle them for you.",
-    points: ["Fully custom website, built for your business", "Website hosting", "Ongoing monthly support — up to 3 simple updates per month (each typically under 30 minutes); larger requests quoted separately", "Every request answered within 24 hours", "No committment, cancel anytime"],
+    points: ["Fully custom website, built for your business", "Website hosting", "Launch & SEO report", "Monthly progress report on how your site is doing on Google", "Ongoing monthly support — up to 3 simple updates per month (each typically under 30 minutes); larger requests quoted separately", "Every request answered within 24 hours", "No committment, cancel anytime"],
     featured: true,
   },
   {

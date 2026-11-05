@@ -4,6 +4,7 @@ import PageHero from "../components/PageHero.astro";
 import StepTimeline from "../components/StepTimeline.astro";
 import CtaBand from "../components/CtaBand.astro";
 import CheckBadge from "../components/CheckBadge.astro";
+import Reports from "../components/Reports.astro";
 import { services, packages, packageScope } from "../data/services";
 
 const steps = services.map((s) => ({ name: s.name, text: s.blurb, includes: s.includes }));
@@ -32,6 +33,8 @@ const steps = services.map((s) => ({ name: s.name, text: s.blurb, includes: s.in
       </div>
     </div>
   </section>
+
+  <Reports hideLink />
 
   <!-- Packages -->
   <section class="relative overflow-hidden border-y border-line bg-surface">

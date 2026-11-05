@@ -29,7 +29,7 @@ export const foundation: FoundationItem[] = [
     title: "Search Engine Optimization (SEO)",
     graphic: "seo",
     description:
-      "Search engines favor fast, well-structured, mobile-friendly sites — which is exactly what you'll be getting.",
+      "Search engines favor fast, well-structured, mobile-friendly sites — which is exactly what you'll be getting. Every site also comes with a Launch & SEO report, so you can see how it's set up.",
   },
   {
     title: "Trust & Credibility",
