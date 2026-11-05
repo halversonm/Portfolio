@@ -116,11 +116,11 @@ const stats = [
       <dl class="mx-auto grid max-w-6xl gap-y-8 px-6 py-10 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4 lg:gap-x-8">
         {
           stats.map((s, i) => (
-            <div data-reveal style={`transition-delay:${i * 100}ms`} class="lg:border-l lg:border-white/10 lg:pl-8 first:lg:border-l-0 first:lg:pl-0">
+            <div data-reveal style={`transition-delay:${i * 100}ms`} class="text-center sm:text-left lg:border-l lg:border-white/10 lg:pl-8 first:lg:border-l-0 first:lg:pl-0">
               <dt class="font-display text-5xl font-semibold tracking-tight text-onink sm:text-6xl">
                 <span data-count={s.value} data-suffix={s.suffix}>{s.value}{s.suffix}</span>
               </dt>
-              <dd class="mt-2 max-w-[16rem] text-sm text-onink-muted">{s.label}</dd>
+              <dd class="mx-auto mt-2 max-w-[16rem] text-sm text-onink-muted sm:mx-0">{s.label}</dd>
             </div>
           ))
         }
@@ -262,6 +262,7 @@ const stats = [
     display: grid;
     padding-top: 3rem;
     padding-right: 1.5rem;
+    touch-action: pan-y; /* horizontal swipes go to the carousel, vertical scrolls the page */
     transform-style: preserve-3d;
     transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
     will-change: transform;

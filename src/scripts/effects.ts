@@ -101,6 +101,25 @@ function initScrollLinked(reduceMotion: boolean) {
 }
 
 /* ------------------------------------------------------------------ */
+/* Back-to-top button                                                  */
+/* ------------------------------------------------------------------ */
+function initBackToTop() {
+  const btn = document.querySelector<HTMLButtonElement>("[data-to-top]");
+  if (!btn) return;
+  const update = () => btn.classList.toggle("is-shown", window.scrollY > 500);
+  const tick = frameThrottle(update);
+  const toTop = () => window.scrollTo({ top: 0 }); // smooth via CSS, unless reduced motion
+
+  update();
+  window.addEventListener("scroll", tick, { passive: true });
+  btn.addEventListener("click", toTop);
+  onCleanup(() => {
+    window.removeEventListener("scroll", tick);
+    btn.removeEventListener("click", toTop);
+  });
+}
+
+/* ------------------------------------------------------------------ */
 /* Count-up stats                                                      */
 /* ------------------------------------------------------------------ */
 function initCountUp(reduceMotion: boolean) {
@@ -319,6 +338,29 @@ function initDeck(reduceMotion: boolean) {
     }),
   );
 
+  // Swipe left/right to move through the cards (touch & pen; mouse keeps click + dots).
+  // CSS `touch-action: pan-y` on the deck lets the page still scroll vertically.
+  let swipeX = 0;
+  let swipeY = 0;
+  let swiping = false;
+  deck.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse") return;
+    swiping = true;
+    swipeX = e.clientX;
+    swipeY = e.clientY;
+  });
+  deck.addEventListener("pointerup", (e) => {
+    if (!swiping) return;
+    swiping = false;
+    const dx = e.clientX - swipeX;
+    const dy = e.clientY - swipeY;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      show(index + (dx < 0 ? 1 : -1)); // swipe left = next, swipe right = previous
+      start();
+    }
+  });
+  deck.addEventListener("pointercancel", () => (swiping = false));
+
   deck.addEventListener("pointerenter", stop);
   deck.addEventListener("pointerleave", start);
   show(0);
@@ -333,6 +375,7 @@ function init() {
   const reduceMotion = mq("(prefers-reduced-motion: reduce)");
   initReveal();
   initScrollLinked(reduceMotion);
+  initBackToTop();
   initCountUp(reduceMotion);
   initPointerEffects(reduceMotion);
   initScrollPreview(reduceMotion);
