@@ -278,51 +278,190 @@ function initPointerEffects(reduceMotion: boolean) {
 /* Hover full-page scroll preview on project cards                     */
 /* ------------------------------------------------------------------ */
 function initScrollPreview(reduceMotion: boolean) {
-  if (reduceMotion || !mq("(hover: hover) and (pointer: fine)")) return;
+  if (reduceMotion) return;
 
-  document.querySelectorAll<HTMLElement>("[data-preview-host]").forEach((host) => {
-    const layer = host.querySelector<HTMLElement>(".preview-layer");
-    const img = layer?.querySelector<HTMLImageElement>("img[data-src]");
-    if (!layer || !img) return;
+  // Mouse devices preview on hover; touch devices play cards on their own as they reach the
+  // middle of the screen. `build()` sets up whichever applies, and is re-run if the answer
+  // changes while the page is open (device-mode toggles in DevTools, tablets with a mouse).
+  const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
 
-    const measure = () => {
-      const dist = img.offsetHeight - layer.offsetHeight;
-      if (dist <= 0) return;
-      host.style.setProperty("--dist", `${dist}px`);
-      host.style.setProperty("--dur", `${clamp(dist / 190, 2.5, 9).toFixed(1)}s`);
-    };
+  const build = (): Cleanup[] => {
+    const local: Cleanup[] = [];
+    const hasHover = hoverQuery.matches;
 
-    let loaded = false;
-    const load = () => {
-      if (loaded) return;
-      loaded = true;
-      img.addEventListener("load", measure, { once: true });
-      img.src = img.dataset.src!;
-      if (img.complete) measure();
-    };
+    // Skip auto-play for visitors who asked to save data or are on a very slow connection.
+    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+    if (!hasHover && (conn?.saveData || /^(slow-2g|2g)$/.test(conn?.effectiveType ?? ""))) return local;
 
-    const enter = () => {
-      load();
-      if (img.complete && img.naturalHeight) {
-        measure();
-        host.classList.add("is-previewing");
-      } else {
-        img.addEventListener("load", () => host.matches(":hover") && host.classList.add("is-previewing"), { once: true });
-      }
-    };
-    const leave = () => host.classList.remove("is-previewing");
+    type Preview = { play: () => void; stop: () => void };
+    const previews = new Map<Element, Preview>();
 
-    host.addEventListener("pointerenter", enter);
-    host.addEventListener("pointerleave", leave);
-    host.addEventListener("focusin", enter);
-    host.addEventListener("focusout", leave);
-    onCleanup(() => {
-      host.removeEventListener("pointerenter", enter);
-      host.removeEventListener("pointerleave", leave);
-      host.removeEventListener("focusin", enter);
-      host.removeEventListener("focusout", leave);
-      host.classList.remove("is-previewing");
+    document.querySelectorAll<HTMLElement>("[data-preview-host]").forEach((host) => {
+      const layer = host.querySelector<HTMLElement>(".preview-layer");
+      const img = layer?.querySelector<HTMLImageElement>("img[data-src]");
+      if (!layer || !img) return;
+
+      const measure = () => {
+        const dist = img.offsetHeight - layer.offsetHeight;
+        if (dist <= 0) return;
+        host.style.setProperty("--dist", `${dist}px`);
+        host.style.setProperty("--dur", `${clamp(dist / 190, 2.5, 9).toFixed(1)}s`);
+      };
+
+      // The long image is only downloaded the first time a card is actually previewed.
+      let loaded = false;
+      const load = () => {
+        if (loaded) return;
+        loaded = true;
+        img.addEventListener("load", measure, { once: true });
+        img.src = img.dataset.src!;
+        if (img.complete) measure();
+      };
+
+      let wanted = false;
+      const play = () => {
+        wanted = true;
+        load();
+        if (img.complete && img.naturalHeight) {
+          measure();
+          host.classList.add("is-previewing");
+        } else {
+          // still downloading: start as soon as it lands, if the card is still wanted
+          img.addEventListener("load", () => wanted && host.classList.add("is-previewing"), { once: true });
+        }
+      };
+      const stop = () => {
+        wanted = false;
+        host.classList.remove("is-previewing");
+      };
+      previews.set(host, { play, stop });
+      local.push(stop);
     });
+    if (!previews.size) return local;
+
+    if (hasHover) {
+      // Desktop: scroll through the page while the pointer (or keyboard focus) is on the card.
+      previews.forEach(({ play, stop }, host) => {
+        host.addEventListener("pointerenter", play);
+        host.addEventListener("pointerleave", stop);
+        host.addEventListener("focusin", play);
+        host.addEventListener("focusout", stop);
+        local.push(() => {
+          host.removeEventListener("pointerenter", play);
+          host.removeEventListener("pointerleave", stop);
+          host.removeEventListener("focusin", play);
+          host.removeEventListener("focusout", stop);
+        });
+      });
+      return local;
+    }
+
+    // Touch: cards play on their own as they reach the middle of the screen, and reset when
+    // they leave. A short dwell stops fast flicks from starting (and downloading) every card.
+    const allHosts = [...previews.keys()] as HTMLElement[];
+    const focusHosts = allHosts.filter((h) => h.closest("[data-preview-focus]"));
+    const freeHosts = allHosts.filter((h) => !focusHosts.includes(h));
+
+    // Cards on the homepage / case studies: each plays when it's in the middle 40% of the screen.
+    if (freeHosts.length) {
+      const timers = new Map<Element, number>();
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            window.clearTimeout(timers.get(entry.target));
+            const preview = previews.get(entry.target);
+            if (!preview) continue;
+            if (entry.isIntersecting) timers.set(entry.target, window.setTimeout(preview.play, 400));
+            else preview.stop();
+          }
+        },
+        { rootMargin: "-30% 0px -30% 0px", threshold: 0.35 },
+      );
+      freeHosts.forEach((h) => io.observe(h));
+      local.push(() => {
+        io.disconnect();
+        timers.forEach((t) => window.clearTimeout(t));
+      });
+    }
+
+    // Work page (`data-preview-focus`): only ONE card (or one side-by-side row) plays at a time,
+    // and only once it is close to the vertical centre of the screen. It keeps playing until it
+    // has clearly moved away, so the next card can't start while the previous one is still going.
+    if (focusHosts.length) {
+      const ENTER = 0.26; // start when the card's centre is within 12% of the screen's centre line
+      const EXIT = 0.22; // stop once it has drifted beyond 22%
+      let playing: HTMLElement[] = [];
+      let pending: HTMLElement | null = null;
+      let pendingTimer = 0;
+
+      const offset = (h: HTMLElement) => {
+        const r = h.getBoundingClientRect();
+        return Math.abs(r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight;
+      };
+      // cards sharing a row (tablets show two across) are treated as one unit
+      const rowOf = (h: HTMLElement) => {
+        const top = h.getBoundingClientRect().top;
+        return focusHosts.filter((o) => Math.abs(o.getBoundingClientRect().top - top) < 40);
+      };
+      const clearPending = () => {
+        window.clearTimeout(pendingTimer);
+        pending = null;
+      };
+      const stopAll = () => {
+        playing.forEach((h) => previews.get(h)?.stop());
+        playing = [];
+      };
+
+      const update = () => {
+        if (playing.length && offset(playing[0]) > EXIT) stopAll();
+        if (playing.length) return clearPending();
+
+        let best: HTMLElement | null = null;
+        let bestOffset = ENTER;
+        for (const h of focusHosts) {
+          const d = offset(h);
+          if (d < bestOffset) {
+            best = h;
+            bestOffset = d;
+          }
+        }
+        if (!best) return clearPending();
+
+        const lead = rowOf(best)[0];
+        if (pending === lead) return;
+        clearPending();
+        pending = lead;
+        pendingTimer = window.setTimeout(() => {
+          pending = null;
+          if (offset(lead) > ENTER) return; // scrolled away during the dwell
+          playing = rowOf(lead);
+          playing.forEach((h) => previews.get(h)?.play());
+        }, 400);
+      };
+
+      const tick = frameThrottle(update);
+      window.addEventListener("scroll", tick, { passive: true });
+      window.addEventListener("resize", tick);
+      update();
+      local.push(() => {
+        window.removeEventListener("scroll", tick);
+        window.removeEventListener("resize", tick);
+        clearPending();
+        stopAll();
+      });
+    }
+    return local;
+  };
+
+  let active = build();
+  const rebuild = () => {
+    active.forEach((fn) => fn());
+    active = build();
+  };
+  hoverQuery.addEventListener("change", rebuild);
+  onCleanup(() => {
+    hoverQuery.removeEventListener("change", rebuild);
+    active.forEach((fn) => fn());
   });
 }
 
