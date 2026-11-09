@@ -9,9 +9,11 @@ import { site } from "../site.config";
 interface Props {
   title?: string;
   description?: string;
+  /** Ask search engines not to list this page (thank-you and 404 pages). */
+  noindex?: boolean;
 }
 
-const { title, description = site.description } = Astro.props;
+const { title, description = site.description, noindex = false } = Astro.props;
 const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.seoTitle}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
 ---
@@ -27,6 +29,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />

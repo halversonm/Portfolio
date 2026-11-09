@@ -8,6 +8,10 @@ export default defineConfig({
   // Used for canonical URLs and OG tags. Update at launch.
   site: 'https://halversonweb.com',
 
+  // Every page lives at a URL ending in "/" (e.g. /about/). Keeping links consistent avoids the
+  // slash-less duplicates that Google Search Console reports as "not indexed".
+  trailingSlash: 'always',
+
   // Warm a page when someone shows intent (hovering a link). The mobile menu does the same
   // when it opens (see effects.ts). Nothing is downloaded up front, so first load stays light.
   prefetch: { prefetchAll: true, defaultStrategy: 'hover' },

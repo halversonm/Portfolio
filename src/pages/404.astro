@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import PageHero from "../components/PageHero.astro";
 ---
 
-<Layout title="Page not found">
+<Layout title="Page not found" noindex>
   <PageHero label="404" title="This page moved or never existed" align="center" width="max-w-3xl">
     Let's get you back on track.
     <Fragment slot="after">
@@ -15,7 +15,7 @@ import PageHero from "../components/PageHero.astro";
           Back home <span aria-hidden="true">→</span>
         </a>
         <a
-          href="/work"
+          href="/work/"
           class="btn-ghost px-6 py-3"
         >
           See the work

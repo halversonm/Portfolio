@@ -15,7 +15,7 @@ const { project, scrollPreview = false, dark = false, headingLevel = "h3" } = As
 const Heading = headingLevel;
 ---
 
-<a href={`/work/${project.slug}`} class="group block" data-preview-host={scrollPreview && project.fullPage ? "" : undefined}>
+<a href={`/work/${project.slug}/`} class="group block" data-preview-host={scrollPreview && project.fullPage ? "" : undefined}>
   <BrowserFrame
     domain={project.domain}
     accent={project.accent}
